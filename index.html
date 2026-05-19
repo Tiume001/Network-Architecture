@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Report Interattivo Ingegneristico - Infrastruttura di Rete Enterprise">
+    <title>Enterprise Network Architecture | NOC Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <header class="sidebar-header">
+                <div class="logo-container">
+                    <div class="blinking-server">
+                        <div class="led led-green"></div>
+                        <div class="led led-blue"></div>
+                        <div class="led led-yellow"></div>
+                    </div>
+                    <h1>NOC Architecture</h1>
+                </div>
+                <p class="subtitle">Report Ingegneristico v5.0</p>
+            </header>
+            
+            <nav class="toc-nav">
+                <ul class="tree-menu">
+                    <!-- Introduzione -->
+                    <li class="menu-group">
+                        <span class="group-title">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                            Prefazione
+                        </span>
+                        <ul class="sub-menu">
+                            <li><a href="#intro" class="nav-link active">Il Paradigma TCP/IP</a></li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Livello 1 -->
+                    <li class="menu-group">
+                        <span class="group-title">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>
+                            Layer 1: Physical
+                        </span>
+                        <ul class="sub-menu">
+                            <li><a href="#l1-demarc" class="nav-link">L'Ingresso (ISP)</a></li>
+                            <li><a href="#l1-z1-core" class="nav-link">Z1: Datacenter Core</a></li>
+                            <li><a href="#l1-z2-fibra" class="nav-link">Z2: Dorsale e LACP</a></li>
+                            <li><a href="#l1-z3-armadio" class="nav-link">Z3: L'Armadio IDF</a></li>
+                            <li><a href="#l1-nave" class="nav-link">Case Study: Nave da Crociera</a></li>
+                            <li><a href="#l1-z3-rame" class="nav-link">Z3: Accesso Client (Rame)</a></li>
+                            <li><a href="#l1-flusso" class="nav-link">Step-by-Step: Flusso Fisico</a></li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Livello 2 -->
+                    <li class="menu-group">
+                        <span class="group-title">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+                            Layer 2: Data Link
+                        </span>
+                        <ul class="sub-menu">
+                            <li><a href="#l2-struttura" class="nav-link">PDU e Indirizzi MAC</a></li>
+                            <li><a href="#l2-switching" class="nav-link">Lo Switch Ethernet</a></li>
+                            <li><a href="#l2-vlan" class="nav-link">Domini e VLAN (PVLAN)</a></li>
+                            <li><a href="#l2-flusso" class="nav-link">Step-by-Step: Flusso L2</a></li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Livello 3 -->
+                    <li class="menu-group">
+                        <span class="group-title">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                            Layer 3: Network
+                        </span>
+                        <ul class="sub-menu">
+                            <li><a href="#l3-routing" class="nav-link">Routing IP e Zone</a></li>
+                            <li><a href="#l3-sdwan" class="nav-link">Migrazione: IPsec vs SD-WAN</a></li>
+                            <li><a href="#l3-flusso" class="nav-link">Step-by-Step: Flusso L3</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Livello 4 -->
+                    <li class="menu-group">
+                        <span class="group-title">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                            Layer 4-7: Transport/App
+                        </span>
+                        <ul class="sub-menu">
+                            <li><a href="#l4-firewall" class="nav-link">NGFW e Sicurezza Perimetrale</a></li>
+                            <li><a href="#l4-proxy" class="nav-link">Reverse Proxy (HAProxy)</a></li>
+                            <li><a href="#l4-ecosystem" class="nav-link">Ecosistema Applicativo (Zscaler, Libraesva...)</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="status-indicator">
+                    <span class="pulse-dot"></span>
+                    <span>NOC Telemetry: ONLINE</span>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- Main Content Area -->
+        <main class="content-area">
+            
+            <!-- GRUPPO INTRODUZIONE (Includerà Telemetry e Prefazione per lo scroll) -->
+            <section id="intro" style="padding-top: 1px;">
+                
+                <!-- TELEMETRY BAR -->
+                <header class="telemetry-bar">
+                    <div class="stat-box">
+                        <span class="stat-label">Core Latency</span>
+                        <span class="stat-value" id="stat-latency">0.24ms</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Backbone Throughput</span>
+                        <span class="stat-value" id="stat-throughput">18.4 Gbps</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">VLANs Attive</span>
+                        <span class="stat-value">24</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Overlay SD-WAN</span>
+                        <span class="stat-value text-green">SYNCED</span>
+                    </div>
+                </header>
+
+                <!-- =======================
+                     PREFAZIONE
+                     ======================= -->
+                <div class="rack-module">
+                <div class="module-header">
+                    <h2>00 // Introduzione allo Stack TCP/IP</h2>
+                    <span class="badge">Prefazione</span>
+                </div>
+                <div class="module-content flex-layout">
+                    <div class="text-col">
+                        <p>Le moderne infrastrutture di telecomunicazione costituiscono la spina dorsale operativa di qualsiasi realtà aziendale. La comprensione profonda delle dinamiche di rete è un requisito fondamentale per la <em>progettazione</em> architetturale e per il <em>troubleshooting</em>.</p>
+                        <p>Questo report modella un'architettura Enterprise seguendo meticolosamente i <strong>4 Layer dello Stack TCP/IP</strong>. L'obiettivo è tracciare il percorso dei dati in modo granulare, partendo dai substrati puramente elettrici (L1), dotandoli di intelligenza (L2/L3), e recapitando il servizio finale (L4).</p>
+                    </div>
+                    <div class="img-col">
+                        <figure class="tech-figure zoomable glow-effect">
+                            <img src="img/stack_tcp%3Aip.png" alt="Modello Stack TCP/IP" loading="lazy">
+                            <figcaption>Astrazione a 4 Livelli: Stack TCP/IP</figcaption>
+                        </figure>
+                    </div>
+                </div>
+                </div>
+            </section>
+
+            <!-- =======================
+                 LAYER 1: PHYSICAL (DALL'ESTERNO ALL'INTERNO)
+                 ======================= -->
+            
+            <section id="l1-demarc" class="rack-module">
+                <div class="module-header">
+                    <h2>01.A // L'Ingresso ISP e il Demarcation Point</h2>
+                    <span class="badge">External Connectivity</span>
+                </div>
+                <div class="module-content">
+                    <p>Invertendo la prospettiva convenzionale, il flusso fisico dei dati aziendali ha origine dall'esterno. Il <strong>Livello 1</strong> inizia nel punto esatto in cui l'infrastruttura pubblica dell'ISP (Internet Service Provider) penetra nell'edificio aziendale.</p>
+                    <div class="flex-layout">
+                        <div class="text-col">
+                            <ul class="tech-list">
+                                <li><strong>Demarcation Point (DMARC):</strong> Il confine legale e fisico tra la responsabilità dell'operatore telefonico e quella dell'azienda. Qui terminano le linee stradali.</li>
+                                <li><strong>Cavo in Fibra Monomodale (Single-Mode):</strong> A differenza delle reti interne (che usano fibra multimodale), l'ISP porta dorsali in fibra monomodale capaci di percorrere decine di chilometri senza attenuazione, grazie a un nucleo vetroso estremamente fine che guida un singolo raggio di luce.</li>
+                                <li><strong>CPE / Modem Ottico (ONT):</strong> Apparato che converte il segnale ottico grezzo proveniente dalla rete pubblica in un formato elettrico o ottico standard, pronto per essere iniettato nel firewall perimetrale aziendale.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="l1-z1-core" class="rack-module">
+                <div class="module-header">
+                    <h2>01.B // Zona 1: Il Datacenter (Core / MDF)</h2>
+                    <span class="badge">MDF & Data Fabric</span>
+                </div>
+                <div class="module-content">
+                    <p>Acquisita la connettività dall'ISP, la rete penetra nel cuore dell'azienda: il <strong>MDF (Main Distribution Frame)</strong> situato nella <strong>Zona 1</strong>. Questo è il forziere fisico ad altissima densità (Datacenter).</p>
+                    <div class="grid-2col">
+                        <div class="card-info glass-card">
+                            <h3>Il Cuore Fisico</h3>
+                            <p>L'ambiente è climatizzato e densamente cablato. Per connettere i potentissimi server adiacenti (nello stesso rack) si usano tozzi cavi passivi <strong>Twinax DAC (Direct Attach Copper)</strong> per latenze quasi nulle (sub-microsecondo), mentre tra fila e fila (End-of-Row) si usano cavi in fibra ottica multi-core (MPO) per scambiare terabit di dati sulla Storage Area Network (SAN).</p>
+                        </div>
+                        <div class="img-col">
+                            <figure class="tech-figure small">
+                                <img src="img/zona1.png" alt="Zona 1 Core">
+                                <figcaption>Blueprint Datacenter Z1</figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="l1-z2-fibra" class="rack-module">
+                <div class="module-header">
+                    <h2>01.C // Zona 2 (Dorsale): Distribuzione in Fibra</h2>
+                    <span class="badge">Backbone Aggregation</span>
+                </div>
+                <div class="module-content">
+                    <p>Dal Datacenter (Z1), i dati devono essere spinti verso i vari piani dell'edificio aziendale (<strong>Zona 2: Spina Dorsale Core</strong>). Per risalire i cavedi verticali si abbraccia la <strong>Fibra Ottica</strong>, per azzerare l'interferenza elettromagnetica (EMI) dei generatori di ascensori e spingere la banda a decine di Gigabit/s.</p>
+                    
+                    <div class="flex-layout">
+                        <div class="text-col">
+                            <ul class="tech-list">
+                                <li><strong>Moduli SFP (Conversione O/E):</strong> Gli switch Core hanno porte modulari vuote. Inserendo un <em>Transceiver SFP</em> (es. 10GBASE-SR), i bit elettrici vengono convertiti al volo in un raggio Laser.</li>
+                                <li><strong>Aggregazione Fisica (LACP):</strong> Non possiamo dipendere da un singolo filo di vetro (Single Point of Failure). Si stendono 2 o più fibre su percorsi (cavedi) divergenti. Il software le fonde in un <strong>EtherChannel</strong>. Se un tecnico trancia il cavo A (Fault L1), i laser continuano a viaggiare sulla fibra B senza disservizi per l'utente.</li>
+                            </ul>
+                        </div>
+                        <div class="img-col gallery-row" style="margin-top: 0;">
+                            <figure class="tech-figure small" style="width: 48%;"><img src="img/transceiver.png" class="gallery-img zoomable" alt="SFP Transceiver" style="width: 100%; border:none;"><figcaption>SFP Transceiver</figcaption></figure>
+                            <figure class="tech-figure small" style="width: 48%;"><img src="img/zona2.png" class="gallery-img zoomable" alt="Dorsale Z2" style="width: 100%; border:none;"><figcaption>Blueprint Zona 2</figcaption></figure>
+                        </div>
+                    </div>
+
+                    <div class="cli-block mac-style">
+                        <div class="cli-header">
+                            <span class="cli-title">admin@core-sw01# - Aggregazione L1 (LACP) verso Piani</span>
+                            <button class="copy-btn" data-copy-target="l1-lacp">Copy</button>
+                        </div>
+                        <pre><code id="l1-lacp">core-sw01(config)# interface range TenGigabitEthernet1/0/1 - 2
+core-sw01(config-if-range)# description DOWNLINK-TO-IDF-PIANO-3
+core-sw01(config-if-range)# channel-protocol lacp
+core-sw01(config-if-range)# channel-group 10 mode active
+core-sw01(config)# interface port-channel 10
+core-sw01(config-if)# description BUNDLE-20G-LOGICO</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section id="l1-z3-armadio" class="rack-module">
+                <div class="module-header">
+                    <h2>01.D // Zona 3: L'Armadio IDF e il Patching</h2>
+                    <span class="badge">Hardware Terminations</span>
+                </div>
+                <div class="module-content">
+                    <div class="flex-layout reverse">
+                        <div class="text-col">
+                            <p>La fibra dorsale giunge al locale tecnico di piano, terminando all'interno di un <strong>Armadio Rack (IDF)</strong>. Qui, lo switch locale riconverte il laser in corrente elettrica, pronta per la distribuzione orizzontale finale in Rame verso le scrivanie.</p>
+                            <p><strong>Sicurezza Fisica (Patch Panel):</strong> I cavi rigidi provenienti dai muri (e diretti alle scrivanie) vengono punzonati sul retro di un <em>Patch Panel</em> (un blocco metallico passivo che funge da presa).</p>
+                            <p><strong>Il Patch Cord:</strong> Per collegare il Patch Panel alle porte RJ45 dello Switch, si usano bretelle morbide. L'ingegneria insegna che se un utente dovesse tirare brutalmente il cavo dalla parete, si strapperà la bretella da 3€ in armadio e non la costosa porta hardware dello switch (ASIC).</p>
+                        </div>
+                        <div class="img-col">
+                            <figure class="tech-figure animated-border glow-effect">
+                                <img src="img/rack.png" alt="Armadio Rack">
+                                <div class="scan-line"></div>
+                                <figcaption>Armadio di Piano (IDF)</figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-row" style="margin-top: 2rem;">
+                        <figure class="tech-figure small"><img src="img/zona3.png" class="gallery-img zoomable" alt="Topologia Z3" style="width:100%; border:none;"><figcaption>Blueprint Zona 3</figcaption></figure>
+                        <figure class="tech-figure small"><img src="img/panel.png" class="gallery-img zoomable" alt="Patch Panel" style="width:100%; border:none;"><figcaption>Patch Panel Terminato</figcaption></figure>
+                        <figure class="tech-figure small"><img src="img/cord.png" class="gallery-img zoomable" alt="Patch Cord" style="width:100%; border:none;"><figcaption>Patch Cord RJ45</figcaption></figure>
+                    </div>
+                </div>
+            </section>
+
+            <section id="l1-nave" class="rack-module">
+                <div class="module-header">
+                    <h2>01.E // Case Study L1: La Rete Navale (Cruise Ships)</h2>
+                    <span class="badge">Maritime Engineering</span>
+                </div>
+                <div class="module-content">
+                    <div class="case-study">
+                        <h4><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 5px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path></svg> Vincoli Fisici Straordinari (Z2/Z3 Navale)</h4>
+                        <p>Mentre in un edificio terrestre il rame orizzontale in Z3 è lo standard, la progettazione di una <strong>Nave da Crociera</strong> impone vincoli unici al Livello 1:</p>
+                        <ul class="tech-list">
+                            <li><strong>Peso Limitato:</strong> Tonnellate di cavi in rame innalzerebbero pericolosamente il baricentro della nave. Si elimina totalmente il rame Z3 in favore del <strong>GPON (Fibra Ottica Passiva)</strong> e dei terminali ONT direttamente nelle cabine. Il vetro è ultraleggero.</li>
+                            <li><strong>Paratie Stagne:</strong> I cavi non possono forare liberamente le pareti d'acciaio. Si usano "Cable Transit" speciali in resina per mantenere la compartimentazione antincendio e stagna della nave.</li>
+                            <li><strong>Micro-Armadi (Zone Enclosures):</strong> Non essendoci spazio nei corridoi nave per grossi rack IDF, gli "armadietti" sono miniaturizzati, incassati a soffitto e corazzati per resistere a polvere e vibrazioni dei motori.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="l1-z3-rame" class="rack-module">
+                <div class="module-header">
+                    <h2>01.F // Zona 3 (Accesso): L'Ultimo Miglio (Rame)</h2>
+                    <span class="badge">Endpoint Connectivity</span>
+                </div>
+                <div class="module-content">
+                    <p>Lasciato l'IDF (in un ambiente corporate standard), la rete affronta l'ultima tratta orizzontale (<strong>Zona 3: Distribuzione Periferica</strong>) per giungere alla postazione finale.</p>
+                    <div class="flex-layout">
+                        <div class="text-col">
+                            <ul class="tech-list">
+                                <li><strong>Cablaggio Orizzontale (UTP):</strong> Il classico cavo in rame (Cat.6) corre fisso nei controsoffitti o sotto i pavimenti flottanti. Le coppie di fili interni sono <em>twistate</em> (intrecciate) per annullare reciprocamente le emissioni elettromagnetiche generate (Crosstalk).</li>
+                                <li><strong>Presa a Muro (Keystone):</strong> Il cavo termina nella placchetta a parete vicino alla scrivania.</li>
+                                <li><strong>La Scheda di Rete (NIC):</strong> Tramite l'ultima bretella, la tensione elettrica raggiunge il PC. La NIC decodifica le tensioni (+5V e -5V) ritrasformandole in un flusso binario software.</li>
+                            </ul>
+                        </div>
+                        <div class="img-col">
+                            <figure class="tech-figure small">
+                                <img src="img/cavo_doppino_intrecciato.png" alt="Cavo UTP">
+                                <figcaption>Mezzo in Rame (Max 100m, Sensibile EMI)</figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="l1-flusso" class="rack-module">
+                <div class="module-header">
+                    <h2>01.G // Step-by-Step: Il Flusso Fisico L1</h2>
+                    <span class="badge" style="background: var(--accent-purple); color: white;">Data Walkthrough L1</span>
+                </div>
+                <div class="module-content">
+                    <div class="layer1-viz-container">
+                        <div class="viz-header">
+                            <h4>Tracciamento Fisico: "Il Viaggio del Segnale"</h4>
+                            <button id="btn-trace-signal" class="trace-btn">⚡ Avvia Diagnostica Segnale</button>
+                        </div>
+                        
+                        <div class="svg-wrapper">
+                            <svg viewBox="0 0 1000 380" preserveAspectRatio="xMidYMid meet" class="l1-svg-flow">
+                                <defs>
+                                    <filter id="glow-cyan" x="-20%" y="-20%" width="140%" height="140%">
+                                        <feGaussianBlur stdDeviation="3" result="blur" />
+                                        <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                                    </filter>
+                                    <filter id="glow-orange" x="-20%" y="-20%" width="140%" height="140%">
+                                        <feGaussianBlur stdDeviation="4" result="blur" />
+                                        <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                                    </filter>
+                                    <filter id="glow-cyan-node" x="-20%" y="-20%" width="140%" height="140%">
+                                        <feGaussianBlur stdDeviation="2" result="blur" />
+                                        <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                                    </filter>
+                                </defs>
+
+                                <!-- Cavi Fisici Base (Spenti) -->
+                                <path id="cable-isp-ont" class="static-cable" d="M 80 130 L 190 130" />
+                                <path id="cable-ont-fw" class="static-cable" d="M 230 130 L 340 130" />
+                                <path id="cable-fw-sw" class="static-cable" d="M 380 130 L 490 130" />
+                                <path id="cable-fw-vpn" class="static-cable dashed" d="M 360 110 L 360 45 L 850 45" />
+                                
+                                <path id="cable-sw-server" class="static-cable" d="M 530 130 L 680 130 L 680 120 L 850 120" />
+                                <path id="cable-sw-ap" class="static-cable" d="M 530 130 L 680 130 L 680 210 L 850 210" />
+                                <path id="cable-sw-pc" class="static-cable" d="M 530 130 L 680 130 L 680 300 L 850 300" />
+
+                                <!-- Overlay di Traffico Live (Ciano per LAN, Arancio per WAN/VPN) -->
+                                <path id="traffic-isp-ont" class="live-traffic orange-flow" d="M 80 130 L 190 130" />
+                                <path id="traffic-ont-fw" class="live-traffic" d="M 230 130 L 340 130" />
+                                <path id="traffic-fw-sw" class="live-traffic" d="M 380 130 L 490 130" />
+                                <path id="traffic-fw-vpn" class="live-traffic orange-flow" d="M 360 110 L 360 45 L 850 45" />
+                                
+                                <path id="traffic-sw-server" class="live-traffic" d="M 530 130 L 680 130 L 680 120 L 850 120" />
+                                <path id="traffic-sw-ap" class="live-traffic" d="M 530 130 L 680 130 L 680 210 L 850 210" />
+                                <path id="traffic-sw-pc" class="live-traffic" d="M 530 130 L 680 130 L 680 300 L 850 300" />
+
+                                <!-- Nodi (Oggetti 2D/3D Style) con info IP/Gateway -->
+                                <g class="viz-node external" id="node-isp" transform="translate(40, 110)">
+                                    <path class="icon-path" d="M30,15 C30,7 20,5 15,10 C10,5 2,10 5,17 C0,20 2,28 10,28 L30,28 C35,28 40,22 35,17 C40,12 35,5 30,15 Z"/>
+                                    <text x="20" y="45" class="node-label">ISP WAN</text>
+                                    <text x="20" y="-8" class="node-ip">IP: 82.105.4.1</text>
+                                </g>
+                                
+                                <g class="viz-node" id="node-ont" transform="translate(190, 115)">
+                                    <rect x="0" y="0" width="40" height="30" rx="3" class="icon-path"/>
+                                    <line x1="8" y1="0" x2="8" y2="-10" class="icon-path"/>
+                                    <line x1="32" y1="0" x2="32" y2="-10" class="icon-path"/>
+                                    <circle cx="10" cy="15" r="2" class="node-led" fill="#44546a"/>
+                                    <circle cx="20" cy="15" r="2" class="node-led" fill="#44546a"/>
+                                    <circle cx="30" cy="15" r="2" class="node-led" fill="#44546a"/>
+                                    <text x="20" y="50" class="node-label">GPON ONT</text>
+                                    <text x="20" y="-8" class="node-ip">L1/L2 Converter</text>
+                                </g>
+
+                                <g class="viz-node external" id="node-fw" transform="translate(340, 105)">
+                                    <path class="icon-path" d="M20,0 L0,8 L0,22 C0,34 10,40 20,45 C30,40 40,34 40,22 L40,8 Z"/>
+                                    <text x="20" y="60" class="node-label">EDGE FW</text>
+                                    <text x="20" y="-8" class="node-ip">GW: 192.168.1.254</text>
+                                </g>
+
+                                <g class="viz-node" id="node-sw" transform="translate(490, 115)">
+                                    <rect x="0" y="0" width="40" height="30" rx="2" class="icon-path"/>
+                                    <rect x="5" y="5" width="8" height="6" class="icon-path"/>
+                                    <rect x="16" y="5" width="8" height="6" class="icon-path"/>
+                                    <rect x="27" y="5" width="8" height="6" class="icon-path"/>
+                                    <rect x="5" y="16" width="8" height="6" class="icon-path"/>
+                                    <rect x="16" y="16" width="8" height="6" class="icon-path"/>
+                                    <rect x="27" y="16" width="8" height="6" class="icon-path"/>
+                                    <text x="20" y="50" class="node-label">CORE SW</text>
+                                    <text x="20" y="-8" class="node-ip">IP: 192.168.1.253</text>
+                                </g>
+
+                                <g class="viz-node external" id="node-vpn" transform="translate(850, 25)">
+                                    <rect x="0" y="0" width="40" height="30" rx="6" class="icon-path" stroke-dasharray="4,4"/>
+                                    <path class="icon-path" d="M12,15 L20,22 L28,15"/>
+                                    <text x="20" y="45" class="node-label">SEDE REMOTA</text>
+                                    <text x="20" y="-8" class="node-ip">Sub: 192.168.2.0/24</text>
+                                </g>
+                                
+                                <g class="viz-node" id="node-server" transform="translate(850, 100)">
+                                    <rect x="0" y="0" width="30" height="40" rx="3" class="icon-path"/>
+                                    <line x1="5" y1="8" x2="25" y2="8" class="icon-path"/>
+                                    <line x1="5" y1="16" x2="25" y2="16" class="icon-path"/>
+                                    <line x1="5" y1="24" x2="25" y2="24" class="icon-path"/>
+                                    <circle cx="15" cy="33" r="2" class="icon-path"/>
+                                    <text x="15" y="55" class="node-label">SERVER NAS</text>
+                                    <text x="15" y="-8" class="node-ip">IP: 192.168.1.10</text>
+                                </g>
+
+                                <g class="viz-node" id="node-ap" transform="translate(850, 190)">
+                                    <path class="icon-path" d="M10,25 Q20,15 30,25" />
+                                    <path class="icon-path" d="M0,20 Q20,0 40,20" />
+                                    <circle cx="20" cy="30" r="3" class="icon-path" fill="currentColor"/>
+                                    <text x="20" y="50" class="node-label">WiFi AP</text>
+                                    <text x="20" y="-8" class="node-ip">IP: 192.168.1.5</text>
+                                </g>
+
+                                <g class="viz-node" id="node-pc" transform="translate(850, 280)">
+                                    <rect x="0" y="0" width="40" height="25" rx="3" class="icon-path"/>
+                                    <line x1="20" y1="25" x2="20" y2="35" class="icon-path"/>
+                                    <line x1="10" y1="35" x2="30" y2="35" class="icon-path"/>
+                                    <text x="20" y="50" class="node-label">PC CLIENT</text>
+                                    <text x="20" y="-8" class="node-ip">IP: 192.168.1.50</text>
+                                </g>
+                            </svg>
+                        </div>
+
+                        <!-- TERMINAL LOG -->
+                        <div class="l1-terminal">
+                            <div class="term-header">
+                                <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                                <span class="term-title">bash - noc-terminal - /sys/net/layer1</span>
+                            </div>
+                            <div class="term-body">
+                                <div style="color: #6b829e;">> Inizializzazione diagnostica cavi fisici...</div>
+                                <div id="term-logs-container"></div>
+                                <div><span class="term-prompt">root@noc-edge:~#</span> <span class="cursor"></span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="case-study">
+                        <h4>La Consegna del Segnale (Dall'ISP al PC)</h4>
+                        <ol class="tech-list">
+                            <li><strong>Passo 1 (Ingresso Esterno):</strong> L'ISP inietta impulsi laser attraverso chilometri di Fibra Monomodale interrata, fino al Demarcation Point dell'edificio aziendale.</li>
+                            <li><strong>Passo 2 (Nucleo Core - Z1):</strong> Il segnale approda nel Datacenter (MDF). Transita passivamente ad altissima velocità tra Firewall e Switch Core, per essere deviato sulle dorsali di distribuzione dell'edificio.</li>
+                            <li><strong>Passo 3 (Viaggio in Dorsale - Z2):</strong> I moduli SFP dello Switch Core iniettano nuovamente fotoni nella Fibra Multimodale. Il raggio di luce risale verticalmente i cavedi del grattacielo per distribuire la banda al piano corretto (LACP assicura continuità in caso di taglio fisico).</li>
+                            <li><strong>Passo 4 (Decodifica Elettrica - Z3):</strong> La luce sbatte sul fotodiodo (RX) del modulo ottico situato nello Switch (nell'Armadio IDF di quel piano). Il laser viene riconvertito in impulsi elettrici (+5V).</li>
+                            <li><strong>Passo 5 (L'Ultimo Miglio - Z3):</strong> La corrente attraversa la bretella, transita dal Patch Panel e sfreccia nel cavo in rame (UTP) murato. Raggiunge infine la Scheda di Rete (NIC) del PC, dove l'elettricità torna ad essere codice binario. <br><em>Tutto questo Livello 1 è "cieco": il cavo sposta bit senza conoscere gli indirizzi software che essi contengono.</em></li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+            <!-- =======================
+                 LAYER 2: DATA LINK
+                 ======================= -->
+            <section id="l2-struttura" class="rack-module">
+                <div class="module-header">
+                    <h2>02.A // Layer 2: Struttura Frame e Identità</h2>
+                    <span class="badge">Data Link Layer</span>
+                </div>
+                <div class="module-content">
+                    <p><strong>Ruolo Fisico:</strong> Trasferimento hardware ad altissima velocità (tramite ASIC dedicati al silicio) degli impulsi elettrici/ottici da una porta all'altra. <br><strong>Ruolo Logico:</strong> Raggruppare i bit grezzi del Livello 1, incapsularli in un formato standard, verificarne l'integrità matematica ed identificare univocamente le macchine fisiche nella LAN.</p>
+                    
+                    <div class="grid-2col">
+                        <div class="card-info glass-card">
+                            <h3>Il Frame Ethernet (PDU L2)</h3>
+                            <p>È la struttura dati fondamentale. Oltre al carico utile (Payload L3), il Frame aggiunge un Header (Mittenti/Destinatari MAC) e un Trailer chiamato <strong>FCS (Frame Check Sequence)</strong>. L'FCS è un hash matematico: se i bit sono stati alterati dalle interferenze (EMI) del L1, l'hash non combacerà e il frame verrà distrutto dall'hardware, proteggendo la CPU della macchina ricevente da calcoli inutili.</p>
+                            <figure class="tech-figure zoomable small" style="margin-top: 1rem;">
+                                <img src="img/frame_eth.png" alt="Struttura Frame Ethernet">
+                            </figure>
+                        </div>
+                        <div class="card-info glass-card">
+                            <h3>Indirizzo MAC (Media Access Control)</h3>
+                            <p>L'identità bruciata a fuoco sulla scheda di rete. È formato da 48 bit esadecimali: i primi 24 bit (OUI) identificano il costruttore (es. Cisco, Apple), mentre gli ultimi 24 bit sono un numero seriale unico al mondo. Questo permette allo switch di mappare fisicamente chi si trova su ciascun cavo.</p>
+                            <figure class="tech-figure zoomable small" style="margin-top: 1rem;">
+                                <img src="img/mac_addr.png" alt="Struttura Indirizzo MAC">
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="l2-switching" class="rack-module">
+                <div class="module-header">
+                    <h2>02.B // Intelligenza Hardware: L'ASIC e la MAC Table</h2>
+                    <span class="badge">Switching Logic</span>
+                </div>
+                <div class="module-content">
+                    <div class="flex-layout">
+                        <div class="text-col">
+                            <p>A differenza degli obsoleti Hub che operavano solo a Livello 1 inondando tutte le porte indiscriminatamente, lo Switch è una macchina deduttiva. L'ispezione dei frame non è eseguita da una CPU generale (sarebbe troppo lento), ma da un <strong>ASIC (Application-Specific Integrated Circuit)</strong> stampato per eseguire solo quell'operazione alla velocità della luce.</p>
+                            <p><strong>Apprendimento:</strong> Quando un frame entra, lo switch legge il MAC Sorgente e lo registra in una velocissima memoria RAM dedicata (<strong>CAM Table</strong>), associandolo alla porta. Se il MAC Destinazione è noto, chiude un circuito fisico interno inviando i dati esclusivamente su quella specifica porta (Unicast), annientando le collisioni.</p>
+                        </div>
+                        <div class="img-col">
+                            <figure class="tech-figure zoomable glow-effect">
+                                <img src="img/mac_table.png" alt="Costruzione Dinamica MAC Table">
+                                <figcaption>Popolamento in Real-Time della Tabella (CAM)</figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="l2-vlan" class="rack-module">
+                <div class="module-header">
+                    <h2>02.C // Broadcast Domains e PVLAN (Sicurezza)</h2>
+                    <span class="badge">Micro-segmentazione</span>
+                </div>
+                <div class="module-content">
+                    <p>Mentre i frame Unicast sono diretti, i frame <strong>Broadcast</strong> (MAC Destinazione `FF:FF:FF:FF:FF:FF`) obbligano lo switch a replicare il pacchetto su tutte le porte. In grandi reti, questo crea una "tempesta" (Broadcast Storm) che paralizza le CPU di tutti i PC connessi e permette attacchi di intercettazione (Sniffing ARP). Per questo si confina il problema partizionando logicamente lo switch in reti virtuali: le <strong>VLAN (802.1Q)</strong>.</p>
+                    
+                    <div class="case-study l2-case">
+                        <h4><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 5px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg> Analisi Rigorosa: Estrema Densità Navale e PVLAN</h4>
+                        <p><strong>Contesto Fisico:</strong> Una Nave da Crociera connette contemporaneamente fino a 5.000 dispositivi (ospiti) sullo stesso SSID WiFi e sulla medesima VLAN di Accesso (VLAN 10).</p>
+                        <p><strong>Rischio Logico:</strong> Se un singolo smartphone contiene un malware con capacità di <em>movimento laterale</em> (Worm), trovandosi sulla stessa VLAN, la rete L2 permetterà al virus di scansionare la subnet, risolvendo gli IP tramite richieste ARP e infettando direttamente gli altri 4.999 ospiti senza mai passare per il firewall L3 o il router.</p>
+                        <p><strong>Soluzione Ingegneristica - Private VLANs (PVLAN):</strong> Non potendo creare 5.000 VLAN differenti, si applica una segmentazione sub-VLAN. Le porte vengono configurate come <em>Isolated</em>. I dispositivi ospiti possono inviare frame solo verso l'Uplink (Porta <em>Promiscuous</em> collegata a Internet). Lo switch inibisce forzatamente a Livello hardware L2 qualsiasi comunicazione tra due porte Isolate. L'ARP viene soppresso: gli ospiti diventano fisicamente e logicamente invisibili tra di loro, abbattendo drasticamente la superficie d'attacco interna.</p>
+                    </div>
+
+                    <div class="cli-block mac-style">
+                        <div class="cli-header">
+                            <span class="cli-title">admin@access-sw01# - Private VLANs (Isolamento Ospiti)</span>
+                            <button class="copy-btn" data-copy-target="l2-vlan">Copy</button>
+                        </div>
+                        <pre><code id="l2-vlan">access-sw01(config)# vlan 10
+access-sw01(config-vlan)# private-vlan primary
+access-sw01(config-vlan)# private-vlan association 11
+access-sw01(config)# vlan 11
+access-sw01(config-vlan)# private-vlan isolated
+!
+access-sw01(config)# interface GigabitEthernet1/0/5
+access-sw01(config-if)# description CABINA-GUEST-AP
+access-sw01(config-if)# switchport mode private-vlan host
+access-sw01(config-if)# switchport private-vlan host-association 10 11</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section id="l2-flusso" class="rack-module">
+                <div class="module-header">
+                    <h2>02.D // Step-by-Step: Il Flusso Dati L2</h2>
+                    <span class="badge" style="background: var(--accent-purple); color: white;">Data Walkthrough L2</span>
+                </div>
+                <div class="module-content">
+                    <div class="case-study">
+                        <h4>La Commutazione Logica Intra-VLAN</h4>
+                        <ol class="tech-list">
+                            <li><strong>Passo 1 (Riassemblaggio):</strong> L'ASIC della porta d'ingresso riceve la stringa binaria (101010...) dal Livello 1 e la formatta nel buffer come <em>Frame Ethernet</em> completo.</li>
+                            <li><strong>Passo 2 (Verifica d'Integrità FCS):</strong> Esegue un rapido calcolo polinomiale sui bit. Se differisce dal trailer originale, il frame è stato corrotto sul cavo e viene eliminato.</li>
+                            <li><strong>Passo 3 (Popolamento MAC Table):</strong> Legge il <em>MAC Sorgente</em>. Se sconosciuto, aggiorna la CAM Table legando quel MAC alla porta d'ingresso con un timer (es. 300 secondi).</li>
+                            <li><strong>Passo 4 (Contesto Sicurezza L2):</strong> Valuta a quale VLAN appartiene la porta. Se è una PVLAN isolata, etichetta il frame per impedire l'inoltro verso altre porte isolate.</li>
+                            <li><strong>Passo 5 (Decisione di Inoltro):</strong> Legge il <em>MAC Destinazione</em>. Se lo trova in tabella, commuta il frame sulla porta specifica. Se è sconosciuto o è un FF:FF:FF:FF:FF:FF (Broadcast), lo inonda (Flooding) verso tutte le altre porte valide all'interno di quella stessa VLAN.</li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+            <!-- =======================
+                 LAYER 3: NETWORK E SD-WAN
+                 ======================= -->
+            <section id="l3-routing" class="rack-module">
+                <div class="module-header">
+                    <h2>03.A // Layer 3: Indirizzamento IP e Routing</h2>
+                    <span class="badge">Network Layer</span>
+                </div>
+                <div class="module-content">
+                    <p><strong>Ruolo Fisico:</strong> Apparati intelligenti (Router Edge, Switch Multilayer Core) dotati di grande potenza CPU e memorie TCAM (Ternary Content-Addressable Memory).<br><strong>Ruolo Logico:</strong> Mentre il L2 muove frame in reti ristrette, il L3 astrae l'hardware: analizza il Pacchetto IP, valuta le subnet gerarchiche e prende decisioni di routing globali basandosi su percorsi ottimali, scavalcando confini geografici.</p>
+                </div>
+            </section>
+
+            <section id="l3-sdwan" class="rack-module">
+                <div class="module-header">
+                    <h2>03.B // Analisi Comparativa: VPN IPsec vs Architettura SD-WAN</h2>
+                    <span class="badge" style="background: var(--accent-cyan); color: #0a0e14;">Scientific Report</span>
+                </div>
+                <div class="module-content">
+                    <p>L'estensione geografica (Zona 4) della LAN tra sedi distanti ha subito un profondo ripensamento architetturale. L'analisi del progetto di migrazione tra le sedi di <strong>Mestre (Datacenter)</strong> e <strong>Ravenna (Filiale)</strong> evidenzia i paradigmi di questo cambiamento.</p>
+
+                    <div class="grid-2col" style="margin-top: 1.5rem;">
+                        <div class="card-info glass-card" style="border-top: 3px solid #ff4444;">
+                            <h3>Legacy (VPN IPsec Point-to-Point)</h3>
+                            <p><strong>Costrutto:</strong> Router monolitici interconnessi tramite costose linee dedicate MPLS o tunnel IPsec statici configurati manualmente in CLI. Il Control Plane (il cervello che calcola le rotte) e il Data Plane (il muscolo che muove i pacchetti) risiedono all'interno della stessa scatola fisica.</p>
+                            <p><strong>Contro:</strong> Totalmente "cieco" alle performance. Se la linea ADSL primaria sta degradando (jitter alto, ping elevato), il routing statico non se ne accorge. Finché il cavo non viene tranciato fisicamente (Link Down L1), la VPN IPsec continua a riversare traffico VoIP su una linea disastrata, causando voci metalliche e cadute. Il failover richiede l'intervento di protocolli lenti (BGP/OSPF) impiegando secondi preziosi.</p>
+                        </div>
+                        <div class="card-info glass-card" style="border-top: 3px solid var(--accent-green);">
+                            <h3>Modern (SD-WAN Architecture)</h3>
+                            <p><strong>Costrutto:</strong> Astrazione SDN (Software-Defined Networking). Il cervello decisionale (Control Plane, es. vSmart) risiede in Cloud, mentre l'apparato fisico in filiale (Edge Router) esegue solo il Data Plane, obbedendo alle policy scaricate dal Cloud.</p>
+                            <p><strong>Pro:</strong> Risparmio enorme sostituendo le MPLS con connessioni ibride economiche (FTTH, LTE). L'App-Aware Routing analizza ogni millisecondo le latenze dei tunnel (Underlay). In caso di degrado, il traffico critico (VoIP) viene deviato istantaneamente e silenziosamente sulla connessione 5G di backup (Failover sub-second), mantenendo trasparenti i dati bulk sulla linea degradata.</p>
+                        </div>
+                    </div>
+
+                    <div class="case-study l2-case" style="border-left-color: var(--accent-cyan); margin-top: 2rem;">
+                        <h4 style="color: var(--accent-cyan); text-shadow: 0 0 8px rgba(0,210,255,0.3);">Il Cambiamento Fisico e la Topologia Ingress</h4>
+                        <p>La transizione ha alterato fisicamente l'accesso alla rete:</p>
+                        <ul class="tech-list" style="margin-bottom: 0;">
+                            <li><strong>Pre-Migrazione:</strong> Fibra ISP Esterna -> Media Converter Ottico -> Router Cisco ISR (Monolitico) -> Core Switch.</li>
+                            <li><strong>Post-Migrazione (SD-WAN):</strong> Fibra ISP Esterna (Fibra dedicata 1G) + Fibra GPON (Backup Broadband) + Antenna LTE 5G Esterna sul tetto. Tutti convergono fisicamente nell'<strong>Appliance Edge SD-WAN (es. FortiGate/Viptela)</strong>. L'Edge Appliance termina i molteplici cavi fisici, esegue l'offloading di sicurezza perimetrale (NGFW Layer 7 integrato) e cede i pacchetti "puliti" e instradati al Core Switch L3 sottostante.</li>
+                        </ul>
+                    </div>
+
+
+
+
+                    <div class="cli-block mac-style">
+                        <div class="cli-header">
+                            <span class="cli-title">admin@edge-ravenna# - SD-WAN BFD (Telemetria Attiva) e App-Route</span>
+                            <button class="copy-btn" data-copy-target="l3-sdwan">Copy</button>
+                        </div>
+                        <pre><code id="l3-sdwan">! Creazione metrica di accettazione SLA per il traffico Vocale
+edge-ravenna(config)# policy
+edge-ravenna(config-policy)# sla-class VOICE_SLA
+edge-ravenna(config-sla-class)# loss 1        ! Tolleranza massima pacchetti persi 1%
+edge-ravenna(config-sla-class)# latency 150   ! Latenza massima 150ms
+edge-ravenna(config-sla-class)# jitter 30     ! Varianza massima 30ms
+! Se il tunnel su ADSL viola i parametri, si attiva la sequence 10
+edge-ravenna(config-policy)# app-route-policy STEER_VOICE
+edge-ravenna(config-app-route)# sequence 10
+edge-ravenna(config-sequence)# match app rtp
+edge-ravenna(config-sequence)# action accept
+edge-ravenna(config-sequence-action)# sla-class VOICE_SLA preferred-color lte</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section id="l3-flusso" class="rack-module">
+                <div class="module-header">
+                    <h2>03.C // Step-by-Step: Il Flusso Dati L3 in SD-WAN</h2>
+                    <span class="badge" style="background: var(--accent-purple); color: white;">Data Walkthrough L3</span>
+                </div>
+                <div class="module-content">
+
+                    <!-- L3 Interactive VPN vs SD-WAN Module -->
+                    <div class="layer1-viz-container" id="l3-viz-module">
+
+                        <!-- Toggle Switch -->
+                        <div class="l3-toggle-bar">
+                            <span class="l3-toggle-label" id="lbl-vpn">Tradizionale: VPN IPsec</span>
+                            <label class="l3-toggle-switch">
+                                <input type="checkbox" id="l3-mode-toggle">
+                                <span class="l3-slider"></span>
+                            </label>
+                            <span class="l3-toggle-label" id="lbl-sdwan">Next-Gen: SD-WAN</span>
+                        </div>
+
+                        <div class="viz-header">
+                            <h4 id="l3-viz-title">Simulazione Flusso L3: VPN IPsec (Venezia → Ravenna)</h4>
+                            <button id="btn-send-packet" class="trace-btn">📡 Invia Pacchetto Dati</button>
+                        </div>
+
+                        <div class="svg-wrapper">
+                            <svg viewBox="0 0 1000 280" preserveAspectRatio="xMidYMid meet" class="l1-svg-flow" id="l3-svg-canvas">
+                                <defs>
+                                    <filter id="l3-glow-cyan" x="-20%" y="-20%" width="140%" height="140%">
+                                        <feGaussianBlur stdDeviation="3" result="blur"/>
+                                        <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                                    </filter>
+                                    <filter id="l3-glow-red" x="-20%" y="-20%" width="140%" height="140%">
+                                        <feGaussianBlur stdDeviation="3" result="blur"/>
+                                        <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                                    </filter>
+                                    <filter id="l3-glow-green" x="-20%" y="-20%" width="140%" height="140%">
+                                        <feGaussianBlur stdDeviation="4" result="blur"/>
+                                        <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                                    </filter>
+                                </defs>
+
+                                <!-- Zone Labels -->
+                                <text x="120" y="25" class="l3-zone-label">VENEZIA (HQ)</text>
+                                <text x="500" y="25" class="l3-zone-label">WAN</text>
+                                <text x="850" y="25" class="l3-zone-label">RAVENNA (Spoke)</text>
+
+                                <!-- === VPN VIEW (Default) === -->
+                                <g id="l3-vpn-view">
+                                    <!-- Cables -->
+                                    <path id="l3v-cable-srv-fw" class="static-cable" d="M 130 140 L 250 140"/>
+                                    <path id="l3v-cable-fw-cloud" class="static-cable" d="M 310 140 L 450 140"/>
+                                    <path id="l3v-cable-cloud-fw2" class="static-cable" d="M 560 140 L 700 140"/>
+                                    <path id="l3v-cable-fw2-pc" class="static-cable" d="M 760 140 L 900 140"/>
+
+                                    <!-- Internet Cloud -->
+                                    <g transform="translate(450, 95)">
+                                        <path d="M40,35 C40,20 30,15 20,20 C15,10 5,15 8,25 C0,28 5,45 15,45 L90,45 C100,45 110,35 105,25 C115,15 100,5 90,20 C85,10 70,15 75,25 C65,15 55,10 50,25 C45,15 40,20 40,35 Z" fill="none" stroke="#44546a" stroke-width="2"/>
+                                        <text x="55" y="35" class="node-label" fill="#6b829e">Internet Pubblico</text>
+                                    </g>
+
+                                    <!-- Nodes -->
+                                    <g class="viz-node" id="l3v-server" transform="translate(70, 120)">
+                                        <rect x="0" y="0" width="60" height="40" rx="4" class="icon-path"/>
+                                        <line x1="10" y1="12" x2="50" y2="12" class="icon-path"/>
+                                        <line x1="10" y1="22" x2="50" y2="22" class="icon-path"/>
+                                        <circle cx="30" cy="33" r="2" class="icon-path"/>
+                                        <text x="30" y="55" class="node-label">LAN Server</text>
+                                        <text x="30" y="-8" class="node-ip">10.0.1.0/24</text>
+                                    </g>
+                                    <g class="viz-node external" id="l3v-fw1" transform="translate(250, 115)">
+                                        <path class="icon-path" d="M30,0 L0,10 L0,30 C0,42 15,50 30,55 C45,50 60,42 60,30 L60,10 Z"/>
+                                        <text x="30" y="70" class="node-label">Firewall VPN</text>
+                                        <text x="30" y="-8" class="node-ip">82.105.4.1</text>
+                                    </g>
+                                    <g class="viz-node external" id="l3v-fw2" transform="translate(700, 115)">
+                                        <path class="icon-path" d="M30,0 L0,10 L0,30 C0,42 15,50 30,55 C45,50 60,42 60,30 L60,10 Z"/>
+                                        <text x="30" y="70" class="node-label">Firewall VPN</text>
+                                        <text x="30" y="-8" class="node-ip">95.231.12.1</text>
+                                    </g>
+                                    <g class="viz-node" id="l3v-pc" transform="translate(870, 120)">
+                                        <rect x="0" y="0" width="50" height="30" rx="3" class="icon-path"/>
+                                        <line x1="25" y1="30" x2="25" y2="40" class="icon-path"/>
+                                        <line x1="12" y1="40" x2="38" y2="40" class="icon-path"/>
+                                        <text x="25" y="55" class="node-label">PC Client</text>
+                                        <text x="25" y="-8" class="node-ip">10.0.2.50</text>
+                                    </g>
+                                </g>
+
+                                <!-- === SD-WAN VIEW (Hidden) === -->
+                                <g id="l3-sdwan-view" style="display: none;">
+                                    <!-- Underlay cables (faded & spaced) -->
+                                    <path id="l3s-cable-fiber" class="static-cable" d="M 310 123 L 700 123" style="stroke: #1a2233;"/>
+                                    <path id="l3s-cable-lte" class="static-cable dashed" d="M 310 157 L 700 157" style="stroke: #1a2233;"/>
+                                    
+                                    <!-- Underlay labels -->
+                                    <text x="505" y="115" class="l3-underlay-label">Fibra FTTH 1Gbps (Underlay)</text>
+                                    <text x="505" y="174" class="l3-underlay-label">4G/LTE Backup (Underlay)</text>
+
+                                    <!-- Overlay Tunnel (Perfect alignment) -->
+                                    <rect x="310" y="128" width="390" height="24" rx="12" fill="none" stroke="#00d2ff" stroke-width="2" opacity="0.3" id="l3s-overlay-tube"/>
+                                    <text x="505" y="143" class="l3-overlay-label">Overlay SD-WAN (Crittografato AES-256)</text>
+
+                                    <!-- Server-Edge cable -->
+                                    <path id="l3s-cable-srv-edge" class="static-cable" d="M 130 140 L 250 140"/>
+                                    <!-- Edge-PC cable -->
+                                    <path id="l3s-cable-edge2-pc" class="static-cable" d="M 760 140 L 900 140"/>
+
+                                    <!-- Nodes -->
+                                    <g class="viz-node" id="l3s-server" transform="translate(70, 120)">
+                                        <rect x="0" y="0" width="60" height="40" rx="4" class="icon-path"/>
+                                        <line x1="10" y1="12" x2="50" y2="12" class="icon-path"/>
+                                        <line x1="10" y1="22" x2="50" y2="22" class="icon-path"/>
+                                        <circle cx="30" cy="33" r="2" class="icon-path"/>
+                                        <text x="30" y="55" class="node-label">LAN Server</text>
+                                        <text x="30" y="-8" class="node-ip">10.0.1.0/24</text>
+                                    </g>
+                                    <g class="viz-node" id="l3s-edge1" transform="translate(250, 115)">
+                                        <rect x="0" y="0" width="60" height="50" rx="6" class="icon-path" style="stroke-width: 2.5;"/>
+                                        <circle cx="15" cy="12" r="3" class="node-led" fill="#44546a"/>
+                                        <circle cx="30" cy="12" r="3" class="node-led" fill="#44546a"/>
+                                        <circle cx="45" cy="12" r="3" class="node-led" fill="#44546a"/>
+                                        <line x1="5" y1="25" x2="55" y2="25" class="icon-path"/>
+                                        <rect x="8" y="30" width="12" height="8" rx="2" class="icon-path"/>
+                                        <rect x="24" y="30" width="12" height="8" rx="2" class="icon-path"/>
+                                        <rect x="40" y="30" width="12" height="8" rx="2" class="icon-path"/>
+                                        <text x="30" y="68" class="node-label">Edge SD-WAN</text>
+                                        <text x="30" y="-8" class="node-ip">vManage: Venezia</text>
+                                    </g>
+                                    <g class="viz-node" id="l3s-edge2" transform="translate(700, 115)">
+                                        <rect x="0" y="0" width="60" height="50" rx="6" class="icon-path" style="stroke-width: 2.5;"/>
+                                        <circle cx="15" cy="12" r="3" class="node-led" fill="#44546a"/>
+                                        <circle cx="30" cy="12" r="3" class="node-led" fill="#44546a"/>
+                                        <circle cx="45" cy="12" r="3" class="node-led" fill="#44546a"/>
+                                        <line x1="5" y1="25" x2="55" y2="25" class="icon-path"/>
+                                        <rect x="8" y="30" width="12" height="8" rx="2" class="icon-path"/>
+                                        <rect x="24" y="30" width="12" height="8" rx="2" class="icon-path"/>
+                                        <rect x="40" y="30" width="12" height="8" rx="2" class="icon-path"/>
+                                        <text x="30" y="68" class="node-label">Edge SD-WAN</text>
+                                        <text x="30" y="-8" class="node-ip">vManage: Ravenna</text>
+                                    </g>
+                                    <g class="viz-node" id="l3s-pc" transform="translate(870, 120)">
+                                        <rect x="0" y="0" width="50" height="30" rx="3" class="icon-path"/>
+                                        <line x1="25" y1="30" x2="25" y2="40" class="icon-path"/>
+                                        <line x1="12" y1="40" x2="38" y2="40" class="icon-path"/>
+                                        <text x="25" y="55" class="node-label">PC Client</text>
+                                        <text x="25" y="-8" class="node-ip">10.0.2.50</text>
+                                    </g>
+                                </g>
+                            </svg>
+                        </div>
+
+                        <!-- TERMINAL LOG L3 -->
+                        <div class="l1-terminal">
+                            <div class="term-header">
+                                <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                                <span class="term-title">bash - noc-terminal - /sys/net/layer3/routing</span>
+                            </div>
+                            <div class="term-body" id="l3-term-body">
+                                <div style="color: #6b829e;">> In attesa di istruzioni di routing L3...</div>
+                                <div id="l3-term-logs"></div>
+                                <div><span class="term-prompt">root@edge-venezia:~#</span> <span class="cursor"></span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- =======================
+                 LAYER 4-7: TRANSPORT, APP & ECOSYSTEM
+                 ======================= -->
+            <section id="l4-firewall" class="rack-module">
+                <div class="module-header">
+                    <h2>04.A // Layer 4-7: Sicurezza Perimetrale (NGFW)</h2>
+                    <span class="badge">Security & Deep Packet Inspection</span>
+                </div>
+                <div class="module-content">
+                    <p>Abbandonando i livelli inferiori, la rete acquisisce intelligenza applicativa. Il traffico in ingresso/uscita deve essere ispezionato non solo per indirizzo IP o porta TCP (L4), ma per reale <strong>contenuto del payload</strong> (L7).</p>
+                    
+                    <div class="flex-layout">
+                        <div class="text-col">
+                            <p><strong>Next-Generation Firewall (NGFW):</strong> Appliance (spesso le stesse Edge SD-WAN) interposte a protezione della Demilitarized Zone (DMZ) e del Datacenter. Il loro processore dedicato analizza i flussi in tempo reale tramite:</p>
+                            <ul class="tech-list">
+                                <li><strong>Intrusion Prevention System (IPS):</strong> Riconoscimento di firme di vulnerabilità note (es. tentativi di SQL Injection verso i web server aziendali).</li>
+                                <li><strong>SSL Decryption:</strong> Poiché il 95% del traffico web è cifrato (HTTPS), un malware transiterebbe invisibile. L'NGFW agisce da "Man-in-the-Middle" legale: intercetta il traffico TLS in uscita, lo decifra usando un certificato aziendale installato sui PC, scansiona il file alla ricerca di ransomware e lo re-cifra prima di mandarlo in Internet.</li>
+                            </ul>
+                        </div>
+                        <div class="img-col">
+                            <figure class="tech-figure small">
+                                <img src="img/stack_tcp:ip.png" alt="Layer 7 Inspection" style="filter: hue-rotate(90deg);">
+                                <figcaption>Ispezione fino al Livello 7</figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="l4-proxy" class="rack-module">
+                <div class="module-header">
+                    <h2>04.B // Application Delivery: Reverse Proxy (HAProxy)</h2>
+                    <span class="badge">Application Delivery & WAF</span>
+                </div>
+                <div class="module-content">
+                    <p>Per massimizzare l'affidabilità dei portali web esposti verso l'esterno, l'architettura sfrutta i Load Balancer in modalità Reverse Proxy (come <strong>HAProxy</strong>). Il Proxy funge da scudo: riceve le chiamate pubbliche mascherando totalmente l'identità fisica e l'IP reale dei server web nascosti nel Datacenter.</p>
+                    
+                    <div class="cli-block mac-style">
+                        <div class="cli-header">
+                            <span class="cli-title">root@haproxy-lb01:~# Configurazione HAProxy (SSL Offloading)</span>
+                            <button class="copy-btn" data-copy-target="l4-config">Copy</button>
+                        </div>
+                        <pre><code id="l4-config">frontend https_front
+    bind *:443 ssl crt /etc/ssl/enterprise.pem
+    mode http
+    default_backend web_servers
+
+backend web_servers
+    mode http
+    balance leastconn
+    server web01 10.20.1.101:80 check inter 2000
+    server web02 10.20.1.102:80 check inter 2000 backup</code></pre>
+                    </div>
+
+                    <div class="case-study">
+                        <h4>Step-by-Step: Il Flusso L7 (Offloading Crittografico)</h4>
+                        <ol class="tech-list">
+                            <li><strong>Passo 1 (Intercettazione L4):</strong> HAProxy blocca la richiesta esterna (TCP SYN) e porta a termine lui stesso il <em>Three-Way Handshake</em>, proteggendo il server di backend da attacchi SYN Flood.</li>
+                            <li><strong>Passo 2 (Offload SSL L7):</strong> Decifra pesantemente il certificato SSL/TLS in ingresso. I server interni vengono liberati dallo stress computazionale dell'algoritmo RSA/AES.</li>
+                            <li><strong>Passo 3 (Intelligenza Least Connections):</strong> Avendo il traffico HTTP in chiaro, esamina le metriche. Vede che `web01` ha 50 connessioni e `web02` ne ha 10.</li>
+                            <li><strong>Passo 4 (Inoltro Pulito):</strong> Apre una sessione TCP separata verso `web02`, iniettando il payload originale per far elaborare la risposta dal server meno carico.</li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+            <section id="l4-ecosystem" class="rack-module">
+                <div class="module-header">
+                    <h2>04.C // L'Ecosistema Applicativo e di Sicurezza (Livello 7)</h2>
+                    <span class="badge" style="background: var(--accent-cyan); color: #0a0e14;">Enterprise Stack</span>
+                </div>
+                <div class="module-content">
+                    <p>Oltre alla trasmissione grezza dei dati, un'infrastruttura Enterprise si basa su uno stack vitale di software L7 (Virtual Machines o Cloud SaaS) per garantire sicurezza, identità, conformità e amministrazione remota della rete.</p>
+                    
+                    <div class="eco-grid">
+                        <!-- Zscaler -->
+                        <div class="eco-card">
+                            <span class="eco-icon">☁️</span>
+                            <h4>Zscaler (SASE / SWG)</h4>
+                            <div style="margin-bottom: 0.5rem;">
+                                <span class="eco-tag">Zero Trust</span><span class="eco-tag">Cloud Firewall</span>
+                            </div>
+                            <p>Abbandona il concetto di perimetro locale. Invia tutto il traffico web degli utenti verso i cloud node di Zscaler tramite tunnel leggeri. Analizza in tempo reale malware, blocca domini infetti (DNS Security) e previene la fuga di dati (DLP), indipendentemente dal fatto che l'utente sia in ufficio o in smart-working.</p>
+                        </div>
+                        
+                        <!-- Aruba ClearPass -->
+                        <div class="eco-card">
+                            <span class="eco-icon">🔐</span>
+                            <h4>Aruba ClearPass (NAC)</h4>
+                            <div style="margin-bottom: 0.5rem;">
+                                <span class="eco-tag">802.1X</span><span class="eco-tag">RADIUS</span>
+                            </div>
+                            <p>Il "buttafuori" della rete. Network Access Control. Qualsiasi PC o stampante che si collega alla presa a muro o al WiFi non riceve traffico fino a quando ClearPass non verifica l'identità del dispositivo tramite certificati digitali e protocollo RADIUS, assegnando dinamicamente la VLAN corretta allo switch.</p>
+                        </div>
+                        
+                        <!-- Libraesva -->
+                        <div class="eco-card">
+                            <span class="eco-icon">📧</span>
+                            <h4>Libraesva ESG</h4>
+                            <div style="margin-bottom: 0.5rem;">
+                                <span class="eco-tag">Email Gateway</span><span class="eco-tag">Sandboxing</span>
+                            </div>
+                            <p>Email Security Gateway posizionato in DMZ. Prima che un'email arrivi al server di posta, Libraesva la intercetta. Esegue analisi euristica Antispam, disinnesca allegati PDF armati (URL Rewriting e Sandboxing), prevenendo il Phishing che rappresenta il 90% degli ingressi ransomware aziendali.</p>
+                        </div>
+                        
+                        <!-- MailStore -->
+                        <div class="eco-card">
+                            <span class="eco-icon">🗄️</span>
+                            <h4>MailStore Server</h4>
+                            <div style="margin-bottom: 0.5rem;">
+                                <span class="eco-tag">Archiviazione</span><span class="eco-tag">Legal Hold</span>
+                            </div>
+                            <p>Appliance software per l'archiviazione massiva e la deduplicazione delle email a norma di legge. Alleggerisce il server di posta primario e garantisce l'immutabilità della corrispondenza per scopi di auditing legale (eDiscovery).</p>
+                        </div>
+
+                        <!-- Management & RDP -->
+                        <div class="eco-card" style="grid-column: 1 / -1; display: flex; align-items: center; gap: 1.5rem;">
+                            <span class="eco-icon" style="font-size: 3rem; margin-bottom: 0;">🖥️</span>
+                            <div>
+                                <h4>Interfacce di Management & Remote Desktop</h4>
+                                <div style="margin-bottom: 0.5rem;">
+                                    <span class="eco-tag">OOBM</span><span class="eco-tag">HTTPS/SSH</span><span class="eco-tag">RDP/VNC</span>
+                                </div>
+                                <p style="margin-bottom: 0;">La gestione dell'infrastruttura avviene su una rete "Out-of-Band" isolata. Gli apparati fisici (Switch, NGFW, Hypervisor) espongono interfacce grafiche HTTPS sicure o console CLI via SSH. Per la gestione sistemistica dei server Windows Server nel Datacenter, si utilizza il protocollo <strong>RDP (Remote Desktop Protocol - TCP 3389)</strong>, mentre per gli ambienti Linux nativi il protocollo SSH o VNC, garantendo che gli amministratori non debbano mai fisicamente recarsi nel freddo della Zona 1 (Datacenter).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <footer class="content-footer">
+                <div class="footer-grid">
+                    <div>
+                        <strong>Sistema:</strong> NOC Report Automator v5.5
+                    </div>
+                    <div>
+                        <strong>Metriche:</strong> Data Links OK. Routing Converged. Firewall Enforcing.
+                    </div>
+                </div>
+                <p>&copy; 2026 Progetto di Tesi Ingegneristica - Architettura Enterprise</p>
+            </footer>
+
+        </main>
+    </div>
+    
+    <!-- Modale Lightbox per le immagini -->
+    <div id="imageModal" class="modal">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="img01">
+        <div id="caption"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
