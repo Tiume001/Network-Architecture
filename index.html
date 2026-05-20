@@ -36,7 +36,7 @@
                             Prefazione
                         </span>
                         <ul class="sub-menu">
-                            <li><a href="#intro" class="nav-link active">Il Paradigma TCP/IP</a></li>
+                            <li><a href="#intro" class="nav-link active">Introduzione e Modello TCP/IP</a></li>
                         </ul>
                     </li>
                     
@@ -47,13 +47,13 @@
                             Layer 1: Physical
                         </span>
                         <ul class="sub-menu">
-                            <li><a href="#l1-demarc" class="nav-link">L'Ingresso (ISP)</a></li>
-                            <li><a href="#l1-z1-core" class="nav-link">Z1: Datacenter Core</a></li>
-                            <li><a href="#l1-z2-fibra" class="nav-link">Z2: Dorsale e LACP</a></li>
-                            <li><a href="#l1-z3-armadio" class="nav-link">Z3: L'Armadio IDF</a></li>
-                            <li><a href="#l1-nave" class="nav-link">Case Study: Nave da Crociera</a></li>
-                            <li><a href="#l1-z3-rame" class="nav-link">Z3: Accesso Client (Rame)</a></li>
-                            <li><a href="#l1-flusso" class="nav-link">Step-by-Step: Flusso Fisico</a></li>
+                            <li><a href="#l1-demarc" class="nav-link">Connettività Internet (ISP)</a></li>
+                            <li><a href="#l1-z1-core" class="nav-link">Sala Server e Datacenter Core (Z1)</a></li>
+                            <li><a href="#l1-z2-fibra" class="nav-link">Dorsali Fibra e LACP (Z2)</a></li>
+                            <li><a href="#l1-z3-armadio" class="nav-link">Armadio di Distribuzione (Z3 - IDF)</a></li>
+                            <li><a href="#l1-nave" class="nav-link">Caso Studio: Rete Nave Crociera</a></li>
+                            <li><a href="#l1-z3-rame" class="nav-link">Cavi in Rame e Prese Utenti (Z3)</a></li>
+                            <li><a href="#l1-flusso" class="nav-link">Simulatore: Viaggio del Bit fisici</a></li>
                         </ul>
                     </li>
                     
@@ -64,10 +64,10 @@
                             Layer 2: Data Link
                         </span>
                         <ul class="sub-menu">
-                            <li><a href="#l2-struttura" class="nav-link">PDU e Indirizzi MAC</a></li>
-                            <li><a href="#l2-switching" class="nav-link">Lo Switch Ethernet</a></li>
-                            <li><a href="#l2-vlan" class="nav-link">Domini e VLAN (PVLAN)</a></li>
-                            <li><a href="#l2-flusso" class="nav-link">Step-by-Step: Flusso L2</a></li>
+                            <li><a href="#l2-struttura" class="nav-link">Frame Ethernet e MAC Address</a></li>
+                            <li><a href="#l2-switching" class="nav-link">Come funziona lo Switch Ethernet</a></li>
+                            <li><a href="#l2-vlan" class="nav-link">Segmentazione VLAN e Private VLAN</a></li>
+                            <li><a href="#l2-flusso" class="nav-link">Simulatore: Switching e Tagging L2</a></li>
                         </ul>
                     </li>
                     
@@ -78,9 +78,9 @@
                             Layer 3: Network
                         </span>
                         <ul class="sub-menu">
-                            <li><a href="#l3-routing" class="nav-link">Routing IP e Zone</a></li>
-                            <li><a href="#l3-sdwan" class="nav-link">Migrazione: IPsec vs SD-WAN</a></li>
-                            <li><a href="#l3-flusso" class="nav-link">Step-by-Step: Flusso L3</a></li>
+                            <li><a href="#l3-routing" class="nav-link">Indirizzamento IP e Routing</a></li>
+                            <li><a href="#l3-sdwan" class="nav-link">Evoluzione: Tunnel VPN vs SD-WAN</a></li>
+                            <li><a href="#l3-flusso" class="nav-link">Simulatore: Routing Geografico L3</a></li>
                         </ul>
                     </li>
 
@@ -88,12 +88,23 @@
                     <li class="menu-group">
                         <span class="group-title">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
-                            Layer 4-7: Transport/App
+                            Layer 4: Transport
                         </span>
                         <ul class="sub-menu">
-                            <li><a href="#l4-firewall" class="nav-link">NGFW e Sicurezza Perimetrale</a></li>
-                            <li><a href="#l4-proxy" class="nav-link">Reverse Proxy (HAProxy)</a></li>
-                            <li><a href="#l4-ecosystem" class="nav-link">Ecosistema Applicativo (Zscaler, Libraesva...)</a></li>
+                            <li><a href="#l4-firewall" class="nav-link">Ispezione e Sicurezza Firewall (NGFW)</a></li>
+                            <li><a href="#l4-proxy" class="nav-link">Bilanciamento e Proxy (HAProxy)</a></li>
+                            <li><a href="#l4-ecosystem" class="nav-link">Suite Software ed MDM Enterprise</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Extra Sandbox -->
+                    <li class="menu-group">
+                        <span class="group-title" style="color: var(--accent-cyan);">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                            Area Test Extra
+                        </span>
+                        <ul class="sub-menu">
+                            <li><a href="#extra-sandbox" class="nav-link">NOC Global Network Sandbox</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -547,16 +558,164 @@ access-sw01(config-if)# switchport private-vlan host-association 10 11</code></p
                     <span class="badge" style="background: var(--accent-purple); color: white;">Data Walkthrough L2</span>
                 </div>
                 <div class="module-content">
-                    <div class="case-study">
-                        <h4>La Commutazione Logica Intra-VLAN</h4>
-                        <ol class="tech-list">
-                            <li><strong>Passo 1 (Riassemblaggio):</strong> L'ASIC della porta d'ingresso riceve la stringa binaria (101010...) dal Livello 1 e la formatta nel buffer come <em>Frame Ethernet</em> completo.</li>
-                            <li><strong>Passo 2 (Verifica d'Integrità FCS):</strong> Esegue un rapido calcolo polinomiale sui bit. Se differisce dal trailer originale, il frame è stato corrotto sul cavo e viene eliminato.</li>
-                            <li><strong>Passo 3 (Popolamento MAC Table):</strong> Legge il <em>MAC Sorgente</em>. Se sconosciuto, aggiorna la CAM Table legando quel MAC alla porta d'ingresso con un timer (es. 300 secondi).</li>
-                            <li><strong>Passo 4 (Contesto Sicurezza L2):</strong> Valuta a quale VLAN appartiene la porta. Se è una PVLAN isolata, etichetta il frame per impedire l'inoltro verso altre porte isolate.</li>
-                            <li><strong>Passo 5 (Decisione di Inoltro):</strong> Legge il <em>MAC Destinazione</em>. Se lo trova in tabella, commuta il frame sulla porta specifica. Se è sconosciuto o è un FF:FF:FF:FF:FF:FF (Broadcast), lo inonda (Flooding) verso tutte le altre porte valide all'interno di quella stessa VLAN.</li>
-                        </ol>
+
+                    <!-- L2 Interactive Switching & VLAN Module -->
+                    <div class="layer1-viz-container" id="l2-viz-module">
+
+                        <!-- VLAN Toggle Switch (Flat vs Configured) -->
+                        <div class="l3-toggle-bar" style="margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 15px;">
+                            <span class="l3-toggle-label active-label" id="l2-state-label-left" style="color: #ef5350;">Stato: Switch NON Configurato (Rete Piatta)</span>
+                            <label class="l3-toggle-switch">
+                                <input type="checkbox" id="l2-vlan-toggle">
+                                <span class="l3-slider" style="background: #ef5350;"></span>
+                            </label>
+                            <span class="l3-toggle-label" id="l2-state-label-right" style="color: #8b949e;">Stato: Switch Configurato (VLAN 802.1Q)</span>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="l2-action-bar" style="display: flex; gap: 15px; justify-content: center; margin-bottom: 20px;">
+                            <button id="btn-broadcast-v10" class="trace-btn" style="background: rgba(239, 83, 80, 0.1); border-color: #ef5350; color: #ef5350;">
+                                📣 Invia Broadcast da Smartphone
+                            </button>
+                            <button id="btn-unicast-v40" class="trace-btn" style="background: rgba(0, 210, 255, 0.1); border-color: #00d2ff; color: #00d2ff;">
+                                💳 Invia Dati Transazione da POS 1
+                            </button>
+                        </div>
+
+                        <div class="viz-header">
+                            <h4 id="l2-viz-title">Simulatore L2: Switching Logico & Segmentazione Virtuale 802.1Q</h4>
+                        </div>
+
+                        <!-- SVG Architecture Map -->
+                        <div class="svg-wrapper" style="background: #0b0f17; border-radius: 8px; border: 1px solid #1a222f; padding: 10px;">
+                            <svg viewBox="0 -60 1000 380" preserveAspectRatio="xMidYMid meet" class="l1-svg-flow" id="l2-svg-canvas">
+                                <defs>
+                                    <filter id="l2-glow-orange" x="-20%" y="-20%" width="140%" height="140%">
+                                        <feGaussianBlur stdDeviation="3" result="blur"/>
+                                        <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                                    </filter>
+                                    <filter id="l2-glow-cyan" x="-20%" y="-20%" width="140%" height="140%">
+                                        <feGaussianBlur stdDeviation="3" result="blur"/>
+                                        <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                                    </filter>
+                                    <filter id="l2-glow-red" x="-20%" y="-20%" width="140%" height="140%">
+                                        <feGaussianBlur stdDeviation="3" result="blur"/>
+                                        <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                                    </filter>
+                                </defs>
+
+                                <!-- Cables (Physical Connections) -->
+                                <!-- Left side -->
+                                <path id="l2-cable-smart-sw" class="static-cable" d="M 130 90 L 410 90"/>
+                                <path id="l2-cable-tab-sw" class="static-cable" d="M 130 230 L 410 230"/>
+                                
+                                <!-- Right side -->
+                                <path id="l2-cable-sw-pos1" class="static-cable" d="M 590 90 L 870 90"/>
+                                <path id="l2-cable-sw-pos2" class="static-cable" d="M 590 230 L 870 230"/>
+
+                                <!-- Port Labels -->
+                                <text x="390" y="82" class="l3-underlay-label" fill="#7d8590">Gi0/1</text>
+                                <text x="390" y="248" class="l3-underlay-label" fill="#7d8590">Gi0/2</text>
+                                <text x="610" y="82" class="l3-underlay-label" fill="#7d8590">Gi0/5</text>
+                                <text x="610" y="248" class="l3-underlay-label" fill="#7d8590">Gi0/6</text>
+
+                                <!-- ==================== LEFT DEVICES ==================== -->
+                                <!-- Smartphone Passeggero -->
+                                <g class="viz-node" id="l2-smartphone" transform="translate(60, 60)">
+                                    <rect x="15" y="0" width="40" height="60" rx="6" class="icon-path"/>
+                                    <circle cx="35" cy="52" r="3" class="icon-path"/>
+                                    <text x="35" y="75" class="node-label">Smartphone Guest 1</text>
+                                    <text x="35" y="87" font-family="var(--font-mono)" font-size="8px" fill="#ef5350" text-anchor="middle">Rete Pubblica non sicura</text>
+                                    <text x="35" y="-8" class="node-ip">MAC: 00:AA:11:BB:22:33</text>
+                                </g>
+
+                                <!-- Tablet Passeggero -->
+                                <g class="viz-node" id="l2-tablet" transform="translate(60, 200)">
+                                    <rect x="5" y="5" width="60" height="45" rx="5" class="icon-path"/>
+                                    <circle cx="35" cy="45" r="2" class="icon-path"/>
+                                    <text x="35" y="68" class="node-label">Tablet Guest 2</text>
+                                    <text x="35" y="80" font-family="var(--font-mono)" font-size="8px" fill="#ef5350" text-anchor="middle">Rete Pubblica non sicura</text>
+                                    <text x="35" y="-5" class="node-ip">MAC: 00:AA:11:BB:CC:DD</text>
+                                </g>
+
+                                <!-- ==================== CENTER SWITCH ==================== -->
+                                <g id="l2-core-switch" class="l2-switch-tooltip-trigger" transform="translate(410, 40)" style="cursor: help;">
+                                    <!-- Base Flat Switch Chassis (Active when Flat Network) -->
+                                    <rect id="l2-switch-chassis-flat" x="0" y="0" width="180" height="240" rx="10" fill="#161b22" stroke="#444c56" stroke-width="2" style="transition: all 0.5s ease;"/>
+                                    
+                                    <!-- Segmented VLAN Chassis Backgrounds (Active when configured) -->
+                                    <g id="l2-switch-chassis-vlan" style="opacity: 0; transition: opacity 0.5s ease;">
+                                        <!-- VLAN 10 Half (Top) -->
+                                        <path d="M 8 8 L 172 8 A 2 2 0 0 1 172 116 L 8 116 A 2 2 0 0 1 8 8 Z" fill="rgba(255, 170, 0, 0.05)" stroke="#ffaa00" stroke-width="2"/>
+                                        <!-- Partition Wall -->
+                                        <line x1="8" y1="120" x2="172" y2="120" stroke="#30363d" stroke-width="3" stroke-dasharray="6 4"/>
+                                        <!-- VLAN 40 Half (Bottom) -->
+                                        <path d="M 8 124 L 172 124 A 2 2 0 0 1 172 232 L 8 232 A 2 2 0 0 1 8 124 Z" fill="rgba(0, 210, 255, 0.05)" stroke="#00d2ff" stroke-width="2"/>
+                                    </g>
+                                    
+                                    <text x="90" y="24" class="l3-zone-label" fill="#8b949e" id="l2-switch-title-text">SWITCH COASSIALE (FLAT)</text>
+                                    
+                                    <!-- CAM Table (visual flash item) -->
+                                    <g id="l2-cam-table" transform="translate(65, 32)">
+                                        <rect x="0" y="0" width="50" height="15" rx="3" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+                                        <text x="25" y="11" font-family="var(--font-mono)" font-size="8px" fill="#8b949e" text-anchor="middle">CAM Table</text>
+                                    </g>
+
+                                    <!-- Dynamic Overlay Titles inside the switch when segmented -->
+                                    <g id="l2-switch-vlan-labels" style="opacity: 0; transition: opacity 0.5s ease; pointer-events: none;">
+                                        <text x="90" y="80" font-family="var(--font-mono)" font-size="11px" fill="#ffaa00" text-anchor="middle" font-weight="700">VLAN 10 (Guest)</text>
+                                        <text x="90" y="185" font-family="var(--font-mono)" font-size="11px" fill="#00d2ff" text-anchor="middle" font-weight="700">VLAN 40 (POS/Bar)</text>
+                                    </g>
+
+                                    <!-- Static Flat network label -->
+                                    <text id="l2-flat-network-label" x="90" y="138" font-family="var(--font-mono)" font-size="11px" fill="#57606a" text-anchor="middle" font-weight="600" style="transition: opacity 0.5s ease;">RETICOLO UNICO (VLAN 1)</text>
+
+                                    <!-- Info Helper Text -->
+                                    <text x="90" y="218" font-family="var(--font-mono)" font-size="8px" fill="#6b829e" text-anchor="middle" style="pointer-events: none; opacity: 0.7;">🛈 Passa il cursore per info</text>
+
+                                    <!-- Tooltip content triggered by CSS hover -->
+                                    <foreignObject x="-40" y="-85" width="260" height="80" class="l2-switch-tooltip" style="pointer-events: none;">
+                                        <div class="l2-tooltip-box">
+                                            Lo switch usa una <strong>Tabella CAM/MAC</strong> per imparare dove sono i dispositivi fisici e lo standard <strong>IEEE 802.1Q</strong> per separarli logicamente in VLAN indipendenti.
+                                        </div>
+                                    </foreignObject>
+                                </g>
+
+                                <!-- ==================== RIGHT DEVICES ==================== -->
+                                <!-- Terminale POS 1 -->
+                                <g class="viz-node" id="l2-pos1" transform="translate(870, 60)">
+                                    <rect x="10" y="5" width="50" height="40" rx="4" class="icon-path"/>
+                                    <rect x="15" y="45" width="40" height="10" rx="2" class="icon-path"/>
+                                    <text x="35" y="70" class="node-label">POS Bar 1</text>
+                                    <text x="35" y="82" font-family="var(--font-mono)" font-size="8px" fill="#00d2ff" text-anchor="middle">Rete Transazioni Finanziarie</text>
+                                    <text x="35" y="-8" class="node-ip">MAC: 00:FF:99:88:77:66</text>
+                                </g>
+
+                                <!-- Terminale POS 2 -->
+                                <g class="viz-node" id="l2-pos2" transform="translate(870, 200)">
+                                    <rect x="10" y="5" width="50" height="40" rx="4" class="icon-path"/>
+                                    <rect x="15" y="45" width="40" height="10" rx="2" class="icon-path"/>
+                                    <text x="35" y="68" class="node-label">POS Bar 2</text>
+                                    <text x="35" y="80" font-family="var(--font-mono)" font-size="8px" fill="#00d2ff" text-anchor="middle">Rete Transazioni Finanziarie</text>
+                                    <text x="35" y="-5" class="node-ip">MAC: 00:FF:99:88:77:55</text>
+                                </g>
+                            </svg>
+                        </div>
+
+                        <!-- TERMINAL LOG L2 -->
+                        <div class="l1-terminal" style="margin-top: 15px;">
+                            <div class="term-header">
+                                <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                                <span class="term-title">bash - switch-terminal - /sys/net/layer2/switching</span>
+                            </div>
+                            <div class="term-body" id="l2-term-body" style="height: 140px; overflow-y: auto;">
+                                <div style="color: #6b829e;">> In attesa di segnali di commutazione L2...</div>
+                                <div id="l2-term-logs"></div>
+                                <div><span class="term-prompt">admin@core-switch-nave:~#</span> <span class="cursor"></span></div>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
             </section>
 
@@ -789,36 +948,34 @@ edge-ravenna(config-sequence-action)# sla-class VOICE_SLA preferred-color lte</c
                                 <div style="color: #6b829e;">> In attesa di istruzioni di routing L3...</div>
                                 <div id="l3-term-logs"></div>
                                 <div><span class="term-prompt">root@edge-venezia:~#</span> <span class="cursor"></span></div>
-                            </div>
                         </div>
                     </div>
-
                 </div>
             </section>
 
             <!-- =======================
-                 LAYER 4-7: TRANSPORT, APP & ECOSYSTEM
+                 LAYER 4: TRANSPORT & ENTERPRISE SERVICES
                  ======================= -->
             <section id="l4-firewall" class="rack-module">
                 <div class="module-header">
-                    <h2>04.A // Layer 4-7: Sicurezza Perimetrale (NGFW)</h2>
-                    <span class="badge">Security & Deep Packet Inspection</span>
+                    <h2>04.A // Layer 4: Sicurezza Perimetrale (NGFW)</h2>
+                    <span class="badge">Security & Packet Inspection</span>
                 </div>
                 <div class="module-content">
-                    <p>Abbandonando i livelli inferiori, la rete acquisisce intelligenza applicativa. Il traffico in ingresso/uscita deve essere ispezionato non solo per indirizzo IP o porta TCP (L4), ma per reale <strong>contenuto del payload</strong> (L7).</p>
+                    <p>Abbandonando i livelli inferiori di pura connettività e instradamento, la rete acquisisce intelligenza applicativa. Il traffico in ingresso/uscita deve essere gestito e filtrato non solo per indirizzo IP, ma per reale <strong>porta di trasporto TCP/UDP (L4)</strong> e contenuto del payload.</p>
                     
                     <div class="flex-layout">
                         <div class="text-col">
-                            <p><strong>Next-Generation Firewall (NGFW):</strong> Appliance (spesso le stesse Edge SD-WAN) interposte a protezione della Demilitarized Zone (DMZ) e del Datacenter. Il loro processore dedicato analizza i flussi in tempo reale tramite:</p>
+                            <p><strong>Next-Generation Firewall (NGFW):</strong> Appliance hardware/virtuali posizionate sul perimetro della rete (DMZ e Datacenter) che operano analisi profonde sui flussi a Livello 4. Esaminano la struttura dei segmenti e le porte note o dinamiche per prevenire attacchi informatici avanzati:</p>
                             <ul class="tech-list">
-                                <li><strong>Intrusion Prevention System (IPS):</strong> Riconoscimento di firme di vulnerabilità note (es. tentativi di SQL Injection verso i web server aziendali).</li>
-                                <li><strong>SSL Decryption:</strong> Poiché il 95% del traffico web è cifrato (HTTPS), un malware transiterebbe invisibile. L'NGFW agisce da "Man-in-the-Middle" legale: intercetta il traffico TLS in uscita, lo decifra usando un certificato aziendale installato sui PC, scansiona il file alla ricerca di ransomware e lo re-cifra prima di mandarlo in Internet.</li>
+                                <li><strong>Intrusion Prevention System (IPS):</strong> Identificazione immediata di tentativi di exploit, scansioni di porte o anomalie nei protocolli di trasporto (es. segmenti TCP malformati o attacchi SYN Flood).</li>
+                                <li><strong>SSL/TLS Decryption:</strong> Intercettazione legale e ispezione dei flussi cifrati (porta TCP 443). L'NGFW decifra il flusso temporaneamente per scansionarlo contro minacce silenti prima di re-cifrarlo e inoltrarlo.</li>
                             </ul>
                         </div>
                         <div class="img-col">
                             <figure class="tech-figure small">
-                                <img src="img/stack_tcp:ip.png" alt="Layer 7 Inspection" style="filter: hue-rotate(90deg);">
-                                <figcaption>Ispezione fino al Livello 7</figcaption>
+                                <img src="img/stack_tcp:ip.png" alt="Layer 4 Transport Inspection" style="filter: hue-rotate(90deg);">
+                                <figcaption>Ispezione flussi a Livello 4</figcaption>
                             </figure>
                         </div>
                     </div>
@@ -828,7 +985,7 @@ edge-ravenna(config-sequence-action)# sla-class VOICE_SLA preferred-color lte</c
             <section id="l4-proxy" class="rack-module">
                 <div class="module-header">
                     <h2>04.B // Application Delivery: Reverse Proxy (HAProxy)</h2>
-                    <span class="badge">Application Delivery & WAF</span>
+                    <span class="badge">Application Delivery & Load Balancing</span>
                 </div>
                 <div class="module-content">
                     <p>Per massimizzare l'affidabilità dei portali web esposti verso l'esterno, l'architettura sfrutta i Load Balancer in modalità Reverse Proxy (come <strong>HAProxy</strong>). Il Proxy funge da scudo: riceve le chiamate pubbliche mascherando totalmente l'identità fisica e l'IP reale dei server web nascosti nel Datacenter.</p>
@@ -851,7 +1008,7 @@ backend web_servers
                     </div>
 
                     <div class="case-study">
-                        <h4>Step-by-Step: Il Flusso L7 (Offloading Crittografico)</h4>
+                        <h4>Step-by-Step: Il Flusso L4-L7 (Offloading Crittografico)</h4>
                         <ol class="tech-list">
                             <li><strong>Passo 1 (Intercettazione L4):</strong> HAProxy blocca la richiesta esterna (TCP SYN) e porta a termine lui stesso il <em>Three-Way Handshake</em>, proteggendo il server di backend da attacchi SYN Flood.</li>
                             <li><strong>Passo 2 (Offload SSL L7):</strong> Decifra pesantemente il certificato SSL/TLS in ingresso. I server interni vengono liberati dallo stress computazionale dell'algoritmo RSA/AES.</li>
@@ -864,65 +1021,351 @@ backend web_servers
 
             <section id="l4-ecosystem" class="rack-module">
                 <div class="module-header">
-                    <h2>04.C // L'Ecosistema Applicativo e di Sicurezza (Livello 7)</h2>
+                    <h2>04.C // L'Ecosistema Enterprise e di Sicurezza (Layer 4)</h2>
                     <span class="badge" style="background: var(--accent-cyan); color: #0a0e14;">Enterprise Stack</span>
                 </div>
                 <div class="module-content">
-                    <p>Oltre alla trasmissione grezza dei dati, un'infrastruttura Enterprise si basa su uno stack vitale di software L7 (Virtual Machines o Cloud SaaS) per garantire sicurezza, identità, conformità e amministrazione remota della rete.</p>
+                    <p>Oltre alla trasmissione grezza dei dati, l'infrastruttura si basa su uno stack solido di software Enterprise per garantire la sicurezza degli accessi, la business continuity, la compliance legale e la gestione centralizzata degli endpoint remoti.</p>
                     
-                    <div class="eco-grid">
-                        <!-- Zscaler -->
-                        <div class="eco-card">
-                            <span class="eco-icon">☁️</span>
-                            <h4>Zscaler (SASE / SWG)</h4>
+                    <div class="eco-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
+                        
+                        <!-- SEZIONE A: SICUREZZA ZERO TRUST & ACCESSI -->
+                        <div class="eco-card" style="--card-color: #ef5350; --card-color-glow: rgba(239, 83, 80, 0.15); border-left: 3px solid var(--card-color);">
+                            <span class="eco-icon">🛡️</span>
+                            <h4>Zscaler & Aruba ClearPass (Zero Trust & Access Security)</h4>
                             <div style="margin-bottom: 0.5rem;">
-                                <span class="eco-tag">Zero Trust</span><span class="eco-tag">Cloud Firewall</span>
+                                <span class="eco-tag" style="background: #ef5350; color: white;">Zero Trust</span>
+                                <span class="eco-tag">802.1X / RADIUS</span>
+                                <span class="eco-tag">SaaS Security</span>
                             </div>
-                            <p>Abbandona il concetto di perimetro locale. Invia tutto il traffico web degli utenti verso i cloud node di Zscaler tramite tunnel leggeri. Analizza in tempo reale malware, blocca domini infetti (DNS Security) e previene la fuga di dati (DLP), indipendentemente dal fatto che l'utente sia in ufficio o in smart-working.</p>
+                            <p><strong>Zscaler:</strong> Architettura SASE (Secure Access Service Edge) nativa in cloud. Tutto il traffico web viene veicolato ai nodi cloud di Zscaler tramite tunnel leggeri a Livello 4 (IPsec/GRE), ispezionando malware e prevenendo la fuga di dati (DLP) a prescindere dalla locazione del client.</p>
+                            <p style="margin-top: 10px; border-top: 1px solid #1a222f; padding-top: 8px;"><strong>Aruba ClearPass:</strong> Il sistema di Network Access Control (NAC) definitivo. Qualsiasi dispositivo Wi-Fi o cablato deve autenticarsi tramite 802.1X/RADIUS. ClearPass verifica lo stato di conformità del dispositivo e assegna dinamicamente la VLAN corretta allo switch.</p>
                         </div>
                         
-                        <!-- Aruba ClearPass -->
-                        <div class="eco-card">
-                            <span class="eco-icon">🔐</span>
-                            <h4>Aruba ClearPass (NAC)</h4>
-                            <div style="margin-bottom: 0.5rem;">
-                                <span class="eco-tag">802.1X</span><span class="eco-tag">RADIUS</span>
-                            </div>
-                            <p>Il "buttafuori" della rete. Network Access Control. Qualsiasi PC o stampante che si collega alla presa a muro o al WiFi non riceve traffico fino a quando ClearPass non verifica l'identità del dispositivo tramite certificati digitali e protocollo RADIUS, assegnando dinamicamente la VLAN corretta allo switch.</p>
-                        </div>
-                        
-                        <!-- Libraesva -->
-                        <div class="eco-card">
+                        <!-- SEZIONE B: SICUREZZA EMAIL & INTEGRITÀ -->
+                        <div class="eco-card" style="--card-color: #ffaa00; --card-color-glow: rgba(255, 170, 0, 0.15); border-left: 3px solid var(--card-color);">
                             <span class="eco-icon">📧</span>
-                            <h4>Libraesva ESG</h4>
+                            <h4>Libraesva ESG (Email Security)</h4>
                             <div style="margin-bottom: 0.5rem;">
-                                <span class="eco-tag">Email Gateway</span><span class="eco-tag">Sandboxing</span>
+                                <span class="eco-tag" style="background: #ffaa00; color: #0a0e14;">Email Gateway</span>
+                                <span class="eco-tag">Sandboxing</span>
+                                <span class="eco-tag">Anti-Phishing</span>
                             </div>
-                            <p>Email Security Gateway posizionato in DMZ. Prima che un'email arrivi al server di posta, Libraesva la intercetta. Esegue analisi euristica Antispam, disinnesca allegati PDF armati (URL Rewriting e Sandboxing), prevenendo il Phishing che rappresenta il 90% degli ingressi ransomware aziendali.</p>
+                            <p>Gateway di sicurezza e-mail posizionato sul perimetro (DMZ). Intercetta e analizza i flussi SMTP (TCP porta 25) applicando controlli euristici antispam, rimozione preventiva delle minacce attive (URL Sandboxing) e decrittazione controllata di file allegati sospetti per mitigare malware e phishing all'ingresso.</p>
                         </div>
-                        
-                        <!-- MailStore -->
-                        <div class="eco-card">
-                            <span class="eco-icon">🗄️</span>
-                            <h4>MailStore Server</h4>
+
+                        <!-- SEZIONE C: DATI E DISASTER RECOVERY -->
+                        <div class="eco-card" style="--card-color: #27c93f; --card-color-glow: rgba(39, 201, 63, 0.15); border-left: 3px solid var(--card-color);">
+                            <span class="eco-icon">🔄</span>
+                            <h4>Veeam Backup & Replication (Data Protection)</h4>
                             <div style="margin-bottom: 0.5rem;">
-                                <span class="eco-tag">Archiviazione</span><span class="eco-tag">Legal Hold</span>
+                                <span class="eco-tag" style="background: #27c93f; color: white;">Business Continuity</span>
+                                <span class="eco-tag">Immutability</span>
+                                <span class="eco-tag">Disaster Recovery</span>
                             </div>
-                            <p>Appliance software per l'archiviazione massiva e la deduplicazione delle email a norma di legge. Alleggerisce il server di posta primario e garantisce l'immutabilità della corrispondenza per scopi di auditing legale (eDiscovery).</p>
+                            <p>La spina dorsale della protezione dati e del Disaster Recovery aziendale. Veeam gestisce backup immutabili e repliche delle Virtual Machine del Datacenter. Ottimizza i flussi a Livello 4 (TCP porte 6184/9392) per trasferire i dati in tempo reale su storage sicuri e inattaccabili dai ransomware, offrendo ripristini istantanei (RTO &lt; 15 minuti).</p>
+                        </div>
+
+                        <!-- SEZIONE D: ARCHIVIAZIONE E AUDITING LEGALE -->
+                        <div class="eco-card" style="--card-color: #00d2ff; --card-color-glow: rgba(0, 210, 255, 0.15); border-left: 3px solid var(--card-color);">
+                            <span class="eco-icon">🗄️</span>
+                            <h4>MailStore Server (E-mail Archiving & Compliance)</h4>
+                            <div style="margin-bottom: 0.5rem;">
+                                <span class="eco-tag" style="background: #00d2ff; color: #0a0e14;">Archiviazione Legale</span>
+                                <span class="eco-tag">Legal Hold</span>
+                                <span class="eco-tag">Deduplicazione</span>
+                            </div>
+                            <p>Software leader per l'archiviazione centralizzata ed immutabile della posta elettronica. MailStore esegue l'archiviazione e la deduplicazione nativa di tutte le caselle, garantendo l'integrità della corrispondenza aziendale per scopi di auditing legale (Legal Hold ed eDiscovery) e riducendo del 60% il carico del server di posta primario.</p>
+                        </div>
+
+                        <!-- SEZIONE E: GESTIONE DISPOSITIVI E MDM -->
+                        <div class="eco-card" style="--card-color: #ab47bc; --card-color-glow: rgba(171, 71, 188, 0.15); border-left: 3px solid var(--card-color); grid-column: 1 / -1;">
+                            <span class="eco-icon">📱</span>
+                            <h4>Ivanti Neurons for MDM (Mobile Device Management & UEM)</h4>
+                            <div style="margin-bottom: 0.5rem;">
+                                <span class="eco-tag" style="background: #ab47bc; color: white;">Ivanti MDM</span>
+                                <span class="eco-tag">Endpoint Security</span>
+                                <span class="eco-tag">Zero-Touch Provisioning</span>
+                            </div>
+                            <p>Piattaforma Enterprise di Unified Endpoint Management (UEM) per il controllo e la messa in sicurezza dei dispositivi mobili aziendali e BYOD (smartphone, tablet e terminali POS del Bar). Ivanti consente il provisioning Zero-Touch, l'applicazione centralizzata di policy crittografiche (es. cifratura del disco, PIN obbligatori) e la segregazione dei dati lavorativi tramite container sicuri, garantendo la conformità anche sui dispositivi sparsi per la nave.</p>
                         </div>
 
                         <!-- Management & RDP -->
-                        <div class="eco-card" style="grid-column: 1 / -1; display: flex; align-items: center; gap: 1.5rem;">
+                        <div class="eco-card" style="--card-color: #6b829e; --card-color-glow: rgba(107, 130, 158, 0.15); grid-column: 1 / -1; display: flex; align-items: center; gap: 1.5rem; border-left: 3px solid var(--card-color);">
                             <span class="eco-icon" style="font-size: 3rem; margin-bottom: 0;">🖥️</span>
                             <div>
                                 <h4>Interfacce di Management & Remote Desktop</h4>
                                 <div style="margin-bottom: 0.5rem;">
-                                    <span class="eco-tag">OOBM</span><span class="eco-tag">HTTPS/SSH</span><span class="eco-tag">RDP/VNC</span>
+                                    <span class="eco-tag">OOBM</span><span class="eco-tag">HTTPS/SSH</span><span class="eco-tag">RDP (TCP 3389)</span>
                                 </div>
                                 <p style="margin-bottom: 0;">La gestione dell'infrastruttura avviene su una rete "Out-of-Band" isolata. Gli apparati fisici (Switch, NGFW, Hypervisor) espongono interfacce grafiche HTTPS sicure o console CLI via SSH. Per la gestione sistemistica dei server Windows Server nel Datacenter, si utilizza il protocollo <strong>RDP (Remote Desktop Protocol - TCP 3389)</strong>, mentre per gli ambienti Linux nativi il protocollo SSH o VNC, garantendo che gli amministratori non debbano mai fisicamente recarsi nel freddo della Zona 1 (Datacenter).</p>
                             </div>
                         </div>
                     </div>
+                </div>
+            </section>
+
+            <!-- =======================
+                 EXTRA SANDBOX: NOC GLOBAL NETWORK PLAYGROUND
+                 ======================= -->
+            <section id="extra-sandbox" class="rack-module">
+                <div class="module-header">
+                    <h2>05.A // NOC Global Network Sandbox - Mini Emulatore Topologico Interattivo</h2>
+                    <span class="badge" style="background: var(--accent-purple); color: white;">Interactive Emulator v7.0</span>
+                </div>
+                <div class="module-content" style="display: flex; flex-direction: column; align-items: center; gap: 25px; padding: 25px;">
+                    
+                    <p style="align-self: flex-start; width: 100%; margin: 0; line-height: 1.6;">
+                        Benvenuto nella <strong>Sandbox NOC Evoluta</strong>. Questo modulo emula in tempo reale l'infrastruttura di rete descritta nella tesi seguendo un flusso logico orizzontale standard (LAN HQ Venezia ➔ WAN Overlay ➔ LAN Ravenna Spoke).
+                        <br><span style="color: var(--accent-cyan); font-weight: 700;">👉 Clicca su ciascun apparato della mappa per accenderlo, visualizzare lo stato (pallino verde/rosso) ed aprirne la console CLI interattiva dedicata!</span>
+                    </p>
+
+                    <!-- TOPOLOGY BOX (ENORMOUS & CENTRED) -->
+                    <div class="svg-container-huge" style="width: 100%; background: #07090e; border: 1px solid #1f242c; border-radius: 12px; padding: 30px; box-shadow: inset 0 0 40px rgba(0,0,0,0.8), 0 10px 30px rgba(0,0,0,0.5); overflow: hidden; position: relative; display: flex; justify-content: center; align-items: center;">
+                        
+                        <!-- Dynamic Background Tech Grid Overlay -->
+                        <div class="grid-tech-overlay" style="position: absolute; top:0; left:0; right:0; bottom:0; opacity: 0.05; pointer-events: none; background-size: 20px 20px; background-image: linear-gradient(to right, #ccc 1px, transparent 1px), linear-gradient(to bottom, #ccc 1px, transparent 1px);"></div>
+                        
+                        <!-- Live Simulation Info HUD Overlay -->
+                        <div id="sb-hud-overlay" class="hud-overlay" style="display: none; position: absolute; top: 15px; left: 50%; transform: translateX(-50%); z-index: 10;">
+                            <span class="hud-tag">LIVE SIMULATION</span>
+                            <span id="sb-hud-text" class="hud-text">Pronto per la simulazione...</span>
+                        </div>
+                        
+                        <!-- The SVG canvas -->
+                        <svg viewBox="0 0 1150 360" preserveAspectRatio="xMidYMid meet" id="sb-svg-canvas" style="width: 100%; height: auto; max-height: 480px; position: relative; z-index: 2;">
+                            <defs>
+                                <filter id="sb-glow" x="-30%" y="-30%" width="160%" height="160%">
+                                    <feGaussianBlur stdDeviation="4" result="blur"/>
+                                    <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                                </filter>
+                            </defs>
+
+                            <!-- ==================== CABLES / LINKS ==================== -->
+                            <!-- Venezia LAN Cables -->
+                            <path id="sb-line-core-v10" d="M 70 85 L 170 175" fill="none" stroke="#44546a" stroke-width="2.5" style="transition: stroke 0.3s;"/>
+                            <path id="sb-line-core-v20" d="M 70 270 L 170 175" fill="none" stroke="#44546a" stroke-width="2.5" style="transition: stroke 0.3s;"/>
+                            <path id="sb-line-fw-core" d="M 250 175 L 315 175" fill="none" stroke="#44546a" stroke-width="3" style="transition: stroke 0.3s;"/>
+
+                            <!-- WAN physical gateways lines (curved beautifully through WAN Cloud) -->
+                            <path id="sb-line-fiber" d="M 385 160 Q 565 70 745 160" fill="none" stroke="#ff4444" stroke-width="2.5" style="transition: stroke 0.3s;"/>
+                            <path id="sb-line-gpon" d="M 385 190 Q 565 280 745 190" fill="none" stroke="#27c93f" stroke-width="2.5" style="transition: stroke 0.3s;"/>
+                            
+                            <!-- SD-WAN Virtual Overlay Tunnel (IPsec) -->
+                            <path id="sb-line-vpn-expanded" d="M 385 175 L 745 175" fill="none" stroke="#ab47bc" stroke-width="4" stroke-dasharray="8 6" style="opacity: 0.8; filter: drop-shadow(0 0 5px #ab47bc); transition: opacity 0.5s, stroke 0.3s;"/>
+
+                            <!-- Ravenna LAN Cables -->
+                            <path id="sb-line-fw-core-rv" d="M 815 175 L 880 175" fill="none" stroke="#44546a" stroke-width="3" style="transition: stroke 0.3s;"/>
+                            <path id="sb-line-core-v10-rv" d="M 960 175 L 1020 85" fill="none" stroke="#44546a" stroke-width="2.5" style="transition: stroke 0.3s;"/>
+                            <path id="sb-line-core-v20-rv" d="M 960 175 L 1020 270" fill="none" stroke="#44546a" stroke-width="2.5" style="transition: stroke 0.3s;"/>
+
+                            <!-- ==================== APPLIANCE NODES ==================== -->
+                            
+                            <!-- Left Zone: LAN HQ Venezia -->
+                            <!-- Client PC HQ (VLAN 10) -->
+                            <g class="viz-node" id="sb-node-client-hq" transform="translate(30, 60)" style="cursor: pointer;">
+                                <rect x="0" y="0" width="80" height="50" rx="4" fill="#161b22" stroke="#ffaa00" stroke-width="2" class="icon-path"/>
+                                <polygon points="32,50 48,50 45,58 35,58" fill="#ffaa00"/>
+                                <line x1="20" y1="58" x2="60" y2="58" stroke="#ffaa00" stroke-width="2"/>
+                                <circle cx="40" cy="25" r="5" fill="none" stroke="#ffaa00" stroke-width="1.5"/>
+                                <text x="40" y="76" class="node-label" font-size="9px" font-weight="700" fill="#fff" text-anchor="middle">Venezia-PC-Client</text>
+                                <text x="40" y="86" font-family="var(--font-mono)" font-size="7px" fill="#ffaa00" text-anchor="middle">10.0.2.50 (VLAN10)</text>
+                                <circle id="sb-status-dot-client-hq" cx="70" cy="12" r="4" fill="#27c93f" filter="url(#sb-glow)"/>
+                            </g>
+
+                            <!-- Server NAS HQ (VLAN 20) -->
+                            <g class="viz-node" id="sb-node-server-hq" transform="translate(30, 240)" style="cursor: pointer;">
+                                <rect x="0" y="0" width="80" height="60" rx="4" fill="#161b22" stroke="#00d2ff" stroke-width="2" class="icon-path"/>
+                                <rect x="8" y="12" width="64" height="8" fill="#0d1117" stroke="#222"/>
+                                <rect x="8" y="26" width="64" height="8" fill="#0d1117" stroke="#222"/>
+                                <rect x="8" y="40" width="64" height="8" fill="#0d1117" stroke="#222"/>
+                                <circle cx="14" cy="16" r="1.5" fill="#27c93f" class="node-led"/>
+                                <circle cx="14" cy="30" r="1.5" fill="#27c93f" class="node-led"/>
+                                <circle cx="14" cy="44" r="1.5" fill="#27c93f" class="node-led"/>
+                                <text x="40" y="80" class="node-label" font-size="9px" font-weight="700" fill="#fff" text-anchor="middle">Venezia-Server-NAS</text>
+                                <text x="40" y="90" font-family="var(--font-mono)" font-size="7px" fill="#00d2ff" text-anchor="middle">10.0.2.100 (VLAN20)</text>
+                                <circle id="sb-status-dot-server-hq" cx="70" cy="12" r="4" fill="#27c93f" filter="url(#sb-glow)"/>
+                            </g>
+
+                            <!-- Core Switch HQ (L3) -->
+                            <g class="viz-node" id="sb-node-core-hq" transform="translate(170, 145)" style="cursor: pointer;">
+                                <rect x="0" y="0" width="80" height="60" rx="4" fill="#161b22" stroke="#00d2ff" stroke-width="2" class="icon-path"/>
+                                <rect x="8" y="10" width="64" height="15" fill="#0d1117" stroke="#222" stroke-width="1"/>
+                                <line x1="16" y1="10" x2="16" y2="25" stroke="#222"/>
+                                <line x1="26" y1="10" x2="26" y2="25" stroke="#222"/>
+                                <line x1="36" y1="10" x2="36" y2="25" stroke="#222"/>
+                                <line x1="46" y1="10" x2="46" y2="25" stroke="#222"/>
+                                <line x1="56" y1="10" x2="56" y2="25" stroke="#222"/>
+                                <circle cx="12" cy="17" r="2" fill="#27c93f" class="node-led"/>
+                                <circle cx="22" cy="17" r="2" fill="#27c93f" class="node-led"/>
+                                <circle cx="32" cy="17" r="2" fill="#ffaa00" class="node-led"/>
+                                <circle cx="42" cy="17" r="2" fill="#27c93f" class="node-led"/>
+                                <text x="40" y="78" class="node-label" font-size="9px" font-weight="700" fill="#fff" text-anchor="middle">Venezia-Core-L3</text>
+                                <text x="40" y="88" font-family="var(--font-mono)" font-size="7px" fill="#8b949e" text-anchor="middle">Gateway Switch</text>
+                                <circle id="sb-status-dot-core-hq" cx="70" cy="12" r="4" fill="#27c93f" filter="url(#sb-glow)"/>
+                            </g>
+
+                            <!-- SD-WAN Edge HQ (NGFW) -->
+                            <g class="viz-node" id="sb-node-fw-hq" transform="translate(310, 135)" style="cursor: pointer;">
+                                <polygon points="37,5 70,18 70,55 37,73 5,55 5,18" fill="#161b22" stroke="#ef5350" stroke-width="2.5" class="icon-path" filter="url(#sb-glow)"/>
+                                <path d="M 37,13 L 55,27 L 55,45 L 37,58 L 20,45 L 20,27 Z" fill="none" stroke="#ef5350" stroke-width="1" stroke-dasharray="2 2"/>
+                                <text x="37" y="90" class="node-label" font-size="9px" font-weight="700" fill="#fff" text-anchor="middle">Venezia-Edge-FW</text>
+                                <text x="37" y="100" font-family="var(--font-mono)" font-size="7px" fill="#8b949e" text-anchor="middle">IP: 10.0.1.1</text>
+                                <circle id="sb-status-dot-fw-hq" cx="62" cy="12" r="4" fill="#27c93f" filter="url(#sb-glow)"/>
+                            </g>
+
+                            <!-- Middle Zone: WAN / Transit Transport -->
+                            <!-- ISP Public Cloud -->
+                            <g class="viz-node" id="sb-node-isp-cloud" transform="translate(510, 125)" style="cursor: pointer;">
+                                <path d="M 25,50 a 16,16 0 0,1 25,-12 a 22,22 0 0,1 40,-4 a 16,16 0 0,1 25,12 a 12,12 0 0,1 0,22 l -90,0 a 12,12 0 0,1 0,-18 z" fill="#161b22" stroke="#ab47bc" stroke-width="2" class="icon-path" filter="url(#sb-glow)"/>
+                                <text x="65" y="82" class="node-label" font-size="9px" font-weight="700" fill="#fff" text-anchor="middle">ISP-WAN-Cloud</text>
+                                <text x="65" y="92" font-family="var(--font-mono)" font-size="8px" fill="#ab47bc" text-anchor="middle">Overlay / Transit</text>
+                                <circle id="sb-status-dot-isp-cloud" cx="95" cy="40" r="4" fill="#27c93f" filter="url(#sb-glow)"/>
+                            </g>
+
+                            <!-- Right Zone: LAN Spoke Ravenna -->
+                            <!-- SD-WAN Edge Ravenna -->
+                            <g class="viz-node" id="sb-node-fw-rv" transform="translate(740, 135)" style="cursor: pointer;">
+                                <polygon points="37,5 70,18 70,55 37,73 5,55 5,18" fill="#161b22" stroke="#ab47bc" stroke-width="2.5" class="icon-path" filter="url(#sb-glow)"/>
+                                <path d="M 37,13 L 55,27 L 55,45 L 37,58 L 20,45 L 20,27 Z" fill="none" stroke="#ab47bc" stroke-width="1" stroke-dasharray="2 2"/>
+                                <text x="37" y="90" class="node-label" font-size="9px" font-weight="700" fill="#fff" text-anchor="middle">Ravenna-Edge-FW</text>
+                                <text x="37" y="100" font-family="var(--font-mono)" font-size="7px" fill="#8b949e" text-anchor="middle">IP: 10.0.3.1</text>
+                                <circle id="sb-status-dot-fw-rv" cx="62" cy="12" r="4" fill="#27c93f" filter="url(#sb-glow)"/>
+                            </g>
+
+                            <!-- Local Switch Ravenna -->
+                            <g class="viz-node" id="sb-node-core-rv" transform="translate(880, 145)" style="cursor: pointer;">
+                                <rect x="0" y="0" width="80" height="60" rx="4" fill="#161b22" stroke="#6b829e" stroke-width="2" class="icon-path"/>
+                                <rect x="8" y="10" width="64" height="15" fill="#0d1117" stroke="#222" stroke-width="1"/>
+                                <circle cx="12" cy="17" r="2" fill="#27c93f" class="node-led"/>
+                                <circle cx="22" cy="17" r="2" fill="#27c93f" class="node-led"/>
+                                <text x="40" y="78" class="node-label" font-size="9px" font-weight="700" fill="#fff" text-anchor="middle">Ravenna-Switch</text>
+                                <text x="40" y="88" font-family="var(--font-mono)" font-size="7px" fill="#8b949e" text-anchor="middle">Local Switch</text>
+                                <circle id="sb-status-dot-core-rv" cx="70" cy="12" r="4" fill="#27c93f" filter="url(#sb-glow)"/>
+                            </g>
+
+                            <!-- Client PC Ravenna -->
+                            <g class="viz-node" id="sb-node-client-rv" transform="translate(1020, 60)" style="cursor: pointer;">
+                                <rect x="0" y="0" width="80" height="50" rx="4" fill="#161b22" stroke="#ffaa00" stroke-width="2" class="icon-path"/>
+                                <polygon points="32,50 48,50 45,58 35,58" fill="#ffaa00"/>
+                                <line x1="20" y1="58" x2="60" y2="58" stroke="#ffaa00" stroke-width="2"/>
+                                <circle cx="40" cy="25" r="5" fill="none" stroke="#ffaa00" stroke-width="1.5"/>
+                                <text x="40" y="76" class="node-label" font-size="9px" font-weight="700" fill="#fff" text-anchor="middle">Ravenna-Client</text>
+                                <text x="40" y="86" font-family="var(--font-mono)" font-size="7px" fill="#ffaa00" text-anchor="middle">10.0.3.50 (VLAN10)</text>
+                                <circle id="sb-status-dot-client-rv" cx="70" cy="12" r="4" fill="#27c93f" filter="url(#sb-glow)"/>
+                            </g>
+
+                            <!-- Server Ravenna Spoke -->
+                            <g class="viz-node" id="sb-node-server-rv" transform="translate(1020, 240)" style="cursor: pointer;">
+                                <rect x="0" y="0" width="80" height="60" rx="4" fill="#161b22" stroke="#00d2ff" stroke-width="2" class="icon-path"/>
+                                <rect x="8" y="12" width="64" height="8" fill="#0d1117" stroke="#222"/>
+                                <rect x="8" y="26" width="64" height="8" fill="#0d1117" stroke="#222"/>
+                                <circle cx="14" cy="16" r="1.5" fill="#27c93f" class="node-led"/>
+                                <circle cx="14" cy="30" r="1.5" fill="#27c93f" class="node-led"/>
+                                <text x="40" y="80" class="node-label" font-size="9px" font-weight="700" fill="#fff" text-anchor="middle">Ravenna-Server</text>
+                                <text x="40" y="90" font-family="var(--font-mono)" font-size="7px" fill="#00d2ff" text-anchor="middle">10.0.3.100 (VLAN20)</text>
+                                <circle id="sb-status-dot-server-rv" cx="70" cy="12" r="4" fill="#27c93f" filter="url(#sb-glow)"/>
+                            </g>
+
+                        </svg>
+                    </div>
+
+                    <!-- CONTROL BAR & DYNAMIC BASH CONSOLE & COMMAND SUGGESTIONS (2-COLUMN GRID) -->
+                    <div class="sandbox-grid">
+                        
+                        <!-- Left Column: Controls panel -->
+                        <div class="sandbox-controls" style="background: #10141b; border: 1px solid #21262d; border-radius: 8px; padding: 20px; display: flex; flex-direction: column; gap: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+                            <h4 style="border-bottom: 1px solid #21262d; padding-bottom: 10px; margin: 0; color: #fff; font-family: var(--font-mono); font-size: 0.95rem; display: flex; align-items: center; gap: 8px;">
+                                ⚙️ Parametri di Rete
+                            </h4>
+                            
+                            <!-- WAN Connection state -->
+                            <div class="control-group">
+                                <label style="display: block; font-size: 0.8rem; color: #8b949e; margin-bottom: 5px; font-weight: 700; font-family: var(--font-mono);">CONNETTIVITÀ WAN (ISP):</label>
+                                <div style="display: flex; flex-direction: column; gap: 8px;">
+                                    <label style="display: flex; align-items: center; justify-content: space-between; font-size: 0.85rem; color: #c9d1d9; cursor: pointer;">
+                                        <span>Fibra Primaria Dedicata</span>
+                                        <input type="checkbox" id="sb-isp-fiber" checked style="cursor: pointer;">
+                                    </label>
+                                    <label style="display: flex; align-items: center; justify-content: space-between; font-size: 0.85rem; color: #c9d1d9; cursor: pointer;">
+                                        <span>Backup GPON</span>
+                                        <input type="checkbox" id="sb-isp-gpon" checked style="cursor: pointer;">
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <!-- SD-WAN routing policies -->
+                            <div class="control-group" style="border-top: 1px solid #21262d; padding-top: 10px;">
+                                <label style="display: block; font-size: 0.8rem; color: #8b949e; margin-bottom: 5px; font-weight: 700; font-family: var(--font-mono);">POLITICA ROUTING SD-WAN:</label>
+                                <select id="sb-sdwan-policy" style="width: 100%; background: #0d1117; border: 1px solid #21262d; color: #c9d1d9; padding: 6px; border-radius: 4px; font-size: 0.8rem; cursor: pointer;">
+                                    <option value="balanced" selected>Active-Active (Bilanciato)</option>
+                                    <option value="priority-fiber">Priorità Linea Fibra</option>
+                                    <option value="failover-gpon">GPON solo Failover</option>
+                                </select>
+                            </div>
+
+                            <!-- VLAN isolation toggle -->
+                            <div class="control-group" style="border-top: 1px solid #21262d; padding-top: 10px;">
+                                <label style="display: block; font-size: 0.8rem; color: #8b949e; margin-bottom: 5px; font-weight: 700; font-family: var(--font-mono);">ISOLAMENTO (VLAN 10 vs 40):</label>
+                                <label style="display: flex; align-items: center; justify-content: space-between; font-size: 0.85rem; color: #c9d1d9; cursor: pointer;">
+                                    <span>Zero-Trust POS Segment</span>
+                                    <input type="checkbox" id="sb-vlan-iso" checked style="cursor: pointer;">
+                                </label>
+                            </div>
+
+                            <!-- VPN state -->
+                            <div class="control-group" style="border-top: 1px solid #21262d; padding-top: 10px;">
+                                <label style="display: block; font-size: 0.8rem; color: #8b949e; margin-bottom: 5px; font-weight: 700; font-family: var(--font-mono);">TUNNEL VPN IPSec OVERLAY:</label>
+                                <label style="display: flex; align-items: center; justify-content: space-between; font-size: 0.85rem; color: #c9d1d9; cursor: pointer;">
+                                    <span>Overlay Tunnel UP</span>
+                                    <input type="checkbox" id="sb-vpn-status" checked style="cursor: pointer;">
+                                </label>
+                            </div>
+
+                            <!-- Firewall policy level -->
+                            <div class="control-group" style="border-top: 1px solid #21262d; padding-top: 10px;">
+                                <label style="display: block; font-size: 0.8rem; color: #8b949e; margin-bottom: 5px; font-weight: 700; font-family: var(--font-mono);">ISPEZIONE NGFW PORTA L4:</label>
+                                <select id="sb-fw-inspect" style="width: 100%; background: #0d1117; border: 1px solid #21262d; color: #c9d1d9; padding: 6px; border-radius: 4px; font-size: 0.8rem; cursor: pointer;">
+                                    <option value="strict" selected>Zero-Trust Enforced (Strict)</option>
+                                    <option value="permissive">Permissivo (Log-Only)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Right Column: Bash Console & Device CLI -->
+                        <div style="display: flex; flex-direction: column; gap: 15px; flex-grow: 1;">
+                            
+                            <!-- Hack Console -->
+                            <div class="l1-terminal" style="margin-top: 0; display: flex; flex-direction: column; flex-grow: 1; min-height: 250px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+                                <div class="term-header">
+                                    <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                                    <span class="term-title">bash - simulator-cli - /sys/net/sandbox/emu-cli</span>
+                                </div>
+                                <div class="term-body" style="flex-grow: 1; height: 200px; overflow-y: auto; font-family: var(--font-mono); font-size: 0.8rem; line-height: 1.5; color: #c9d1d9; padding: 15px;">
+                                    <div style="color: #6a737d;"># NOC SYSTEM MINI-EMULATOR SHELL - VERSIONE 7.0</div>
+                                    <div id="sb-selection-warning" style="color: var(--accent-cyan); font-weight: bold; margin-bottom: 10px; animation: pulse 2s infinite alternate;">[!] Seleziona un apparato sulla mappa per aprire la sua console di gestione.</div>
+                                    <div id="sb-term-logs"></div>
+                                    <div id="sb-term-input-line" style="display: none; align-items: center; gap: 8px; margin-top: 8px;">
+                                        <span id="sb-term-prompt" style="color: var(--accent-cyan); font-weight: bold;">noc-admin@hq-terminal:~$</span>
+                                        <input type="text" id="sb-cmd-input" placeholder="Digita un comando o clicca sui tasti sotto..." style="background: transparent; border: none; color: #fff; outline: none; font-family: var(--font-mono); font-size: 0.8rem; flex-grow: 1;">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Interactive suggestion panel specific to active device -->
+                            <div id="sb-available-commands-container" style="background: #10141b; border: 1px solid #21262d; border-radius: 8px; padding: 15px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+                                <span style="font-size: 0.78rem; color: #8b949e; font-weight: 700; font-family: var(--font-mono); display: flex; align-items: center; gap: 5px;">
+                                    ⚡ COMANDI DISPONIBILI (Clicca per lanciare in CLI):
+                                </span>
+                                <div id="sb-available-commands" style="display: flex; flex-wrap: wrap; gap: 8px;">
+                                    <!-- Dynamic commands buttons will be written here -->
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
                 </div>
             </section>
             
